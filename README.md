@@ -8,11 +8,12 @@ Woobuntu 是一个基于Ubuntu（目前是15.10版本）的自动配置脚本，
 
 首先你需要下载一个Ubuntu安装镜像，推荐xubuntu-15.10-desktop-amd64.iso，但是理论上其他桌面版本的Ubuntu均支持，之后以root权限运行脚本
 
-vim woobuntu_build.sh
+vim woobuntu_chroot_build.sh
 
 注释掉你不需要的工具，或者自己添加你想要的工具
 
 sudo su root
+
 ./woobuntu_build.sh xubuntu-15.10-desktop-amd64.iso
 
 ## 直接安装至已有的Ubuntu系统 ##
