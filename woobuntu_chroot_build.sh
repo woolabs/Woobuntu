@@ -17,6 +17,10 @@ apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fci
 
 #restricted-extras
 apt-get install ubuntu-restricted-extras -y
+
+#Optional desktop envs
+#apt-get install gnome -y
+
 #Graphic sudo
 apt-get install gksu -y
 
@@ -88,6 +92,25 @@ apt-get install cairo-dock -y
 #woobuntu self build
 apt-get install squashfs-tools dchroot mkisofs -y
 
+#VScode
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+wget https://az764295.vo.msecnd.net/public/0.10.3/VSCode-linux64.zip
+unzip VSCode-linux64.zip
+cd /root
+cat > /usr/share/applications/vscode.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VSCode
+Icon=application-default-icon
+Exec=/opt/woobuntu/VSCode-linux-x64/Code
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=false
+EOF
+
 #Vim
 apt-get install vim -y
 
@@ -132,6 +155,11 @@ TabActivityColor=#0f4999
 ScrollingOnOutput=FALSE
 EOF
 
+#zsh&oh-my-zsh @redrain_you_jie_cao
+apt-get install zsh git -y
+git clone git://github.com/robbyrussell/oh-my-zsh.git /etc/skel/.oh-my-zsh
+cp /etc/skel/.oh-my-zsh/templates/zshrc.zsh-template /etc/skel/.zshrc
+#chsh -s /bin/zsh
 #conky
 apt-get install git conky-all curl -y
 
@@ -949,6 +977,32 @@ run
 spool /opt/woobuntu/log/console.log
 
 EOF
+
+#Additional software - NetEase-MusicBox @寂寞的瘦子
+sudo pip2 install NetEase-MusicBox
+sudo apt-get install mpg123 -y
+cat > /usr/share/applications/musicbox.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=musicbox
+Icon=application-default-icon
+Exec=xfce4-terminal -e '/bin/bash -c "musicbox; exec bash"'
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=false
+EOF
+
+#BBScan @lijiejie
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/lijiejie/BBScan.git
+cd BBScan
+pip install -r requirements.txt
+cd /usr/bin
+ln -s /opt/woobuntu/BBScan/BBScan.py bbscan
+cd /root
 
 #End of chroot env , cleanup and repack
 
