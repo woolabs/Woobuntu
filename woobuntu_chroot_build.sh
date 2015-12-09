@@ -97,6 +97,7 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 wget https://az764295.vo.msecnd.net/public/0.10.3/VSCode-linux64.zip
 unzip VSCode-linux64.zip
+rm VSCode-linux64.zip
 cd /root
 cat > /usr/share/applications/vscode.desktop <<EOF
 [Desktop Entry]
@@ -112,14 +113,40 @@ Terminal=false
 EOF
 
 #Vim
-apt-get install vim -y
+apt-get install vim git -y
 
 #Vim color
-cat > /etc/skel/.vimrc <<EOF
+cat > /root/.vimrc <<EOF
+set nocompatible                " be iMproved
+filetype off                    " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"my Bundle here:
+"
+" original repos on github
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+
 syntax enable
 set background=dark
 colorscheme evening
 EOF
+
+#vim plugin
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+vim +PluginInstall +qall
+apt-get install build-essential python-dev cmake -y
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
+cp -r ~/.vim /etc/skel
+chmod -R 777 /etc/skel/.vim
+cp /root/.vimrc /etc/skel/
+chmod 666 /etc/skel/.vimrc
+cd /root
 
 #Terminalrc
 mkdir -p /etc/skel/.config/xfce4/terminal
@@ -532,13 +559,11 @@ cd /root
 rm -rf aircrack-ng
 
 #mdk3
-tar -zxvf mdk3-v6-fix.tar.gz
 cd mdk3-v6
 make
 make install
 cd /root
 rm -rf mdk3-v6
-rm mdk3-v6-fix.tar.gz
 
 #hackrf
 apt-get install gnuradio gr-osmosdr hackrf -y
@@ -549,6 +574,7 @@ cd /opt/woobuntu
 git clone https://github.com/hph86/hostapd-wpe.git
 wget http://hostap.epitest.fi/releases/hostapd-2.5.tar.gz
 tar -zxf hostapd-2.5.tar.gz
+rm hostapd-2.5.tar.gz
 cd hostapd-2.5
 patch -p1 < ../hostapd-wpe/hostapd-wpe.patch 
 cd hostapd
@@ -575,6 +601,12 @@ expand-hosts
 domain=example.com 
 dhcp-range=192.168.1.20,192.168.1.125,24h 
 EOF
+
+#Fruitywifi
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/xtr4nge/FruityWifi.git
+cd /root
 
 #android-tools
 mkdir -p /opt/woobuntu/android-tools
@@ -796,6 +828,40 @@ cd the-backdoor-factory
 ./install.sh
 cd /root
 
+#golismero
+mkdir -p /opt/woobuntu
+apt-get install python2.7 python2.7-dev python-pip python-docutils git perl nmap sslscan -y
+cd /opt/woobuntu
+git clone https://github.com/golismero/golismero.git
+cd golismero
+pip install -r requirements.txt
+pip install -r requirements_unix.txt
+chmod a+x golismero.py
+cd /root
+ln -s /opt/woobuntu/golismero/golismero.py /usr/bin/golismero
+
+#spiderfoot
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/smicallef/spiderfoot.git
+sudo apt-get install git python-dev python-pip python-m2crypto python-netaddr python-pypdf python-stem python-lxml -y
+sudo pip install cherrypy mako
+chmod -R 777 spiderfoot
+cd /root
+cat > /usr/share/applications/spiderfoot.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=spiderfoot
+Icon=application-default-icon
+Exec=xfce4-terminal -e '/bin/bash -c "/opt/woobuntu/spiderfoot/sf.py; exec bash"'
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=true
+EOF
+
+
 #beEF
 apt-get install ruby sqlite3 ruby-sqlite3 -y
 mkdir -p /opt/woobuntu
@@ -859,25 +925,25 @@ apt-get install wine -y
 apt-get install zlib1g-dev:i386 -y
 
 #wine-qq
+cd /root
 unzip wine-qqintl.zip
 cd wine-qqintl
 dpkg -i wine-qqintl_0.1.3-2_i386.deb
 apt-get -f install -y 
 cd /root
+rm -rf wine-qqintl
+rm wine-qqintl.zip
+cd /root
 
 #firefox
-mv mozilla_profile.tar.gz /etc/skel
+mv .mozilla /etc/skel
 cd /etc/skel
-tar -zxvf mozilla_profile.tar.gz
 chmod -R 777 .mozilla
-rm mozilla_profile.tar.gz
 cd /root
 mkdir -p /opt/woobuntu
-mv wooyun-firefox.tar.gz /opt/woobuntu
+mv wooyun-firefox /opt/woobuntu
 cd /opt/woobuntu
-tar -zxvf wooyun-firefox.tar.gz
 chmod -R 777 wooyun-firefox
-rm wooyun-firefox.tar.gz
 cd /root
 
 #pyobfuscate
@@ -979,6 +1045,7 @@ spool /opt/woobuntu/log/console.log
 EOF
 
 #Additional software - NetEase-MusicBox @寂寞的瘦子
+pip install pycrypto
 sudo pip2 install NetEase-MusicBox
 sudo apt-get install mpg123 -y
 cat > /usr/share/applications/musicbox.desktop <<EOF
@@ -999,15 +1066,26 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/lijiejie/BBScan.git
 cd BBScan
+chmod a+x BBScan.py
 pip install -r requirements.txt
 cd /usr/bin
 ln -s /opt/woobuntu/BBScan/BBScan.py bbscan
 cd /root
 
+#dzscan @matt
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/code-scan/dzscan.git
+cd dzscan
+chmod a+x dzscan.py
+cd /root
+ln -s /opt/woobuntu/dzscan/dzscan.py dzscan
+
 #End of chroot env , cleanup and repack
 
 apt-get clean
 apt-get -d install apache2 php5 mysql-server php5-mysql -y
+apt-get -d install gcc-4.7 g++-4.7 dnsmasq hostapd libssl-dev wireless-tools iw nginx php5-fpm gettext make intltool build-essential automake autoconf uuid uuid-dev php5-curl php5-cli dos2unix curl sudo unzip lsb-release -y
 rm -rf /tmp/*
 echo "" > /etc/hosts
 cat > /etc/resolv.conf <<EOF
