@@ -16,6 +16,7 @@ sudo cp -r mdk3-v6 ~/livecd/custom/root
 sudo cp wine-qqintl.zip ~/livecd/custom/root
 sudo cp -r wooyun-firefox ~/livecd/custom/root
 sudo cp -r .mozilla ~/livecd/custom/root
+sudo cp -r altman ~/livecd/custom/root
 sudo cp woobuntu_chroot_build.sh ~/livecd/custom/root
 sudo chroot ~/livecd/custom /root/woobuntu_chroot_build.sh
 sudo umount -lf ~/livecd/custom/proc

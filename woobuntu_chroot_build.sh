@@ -5,6 +5,9 @@ mount -t sysfs none /sys/
 
 #Here is the chroot env , do something here
 
+
+#vnc
+apt-get install vnc4server -y
 #Everything inside /root dir
 cd /root
 
@@ -14,6 +17,17 @@ apt-get update
 
 #Chinese language support
 apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fcitx-frontend-qt4 libreoffice-help-en-gb hyphen-en-us firefox-locale-zh-hans thunderbird-locale-en-us fcitx-ui-qimpanel thunderbird-locale-zh-cn fcitx-ui-classic fcitx-table-wubi thunderbird-locale-en-gb fonts-arphic-ukai mythes-en-au mythes-en-us libreoffice-help-en-us fcitx-frontend-qt5 libreoffice-l10n-en-gb wbritish thunderbird-locale-en fcitx-frontend-gtk3 fcitx-pinyin openoffice.org-hyphenation libreoffice-help-zh-cn fonts-arphic-uming libreoffice-l10n-zh-cn myspell-en-gb fcitx-sunpinyin myspell-en-za libreoffice-l10n-en-za fcitx-module-cloudpinyin hunspell-en-ca fcitx -y
+
+#sougou-pinyin
+#wget http://cdn2.ime.sogou.com/dl/index/1446541585/sogoupinyin_2.0.0.0068_amd64.deb
+#dpkg -i sogoupinyin_2.0.0.0068_amd64.deb
+#apt-get -f install -y
+#rm sogoupinyin_2.0.0.0068_amd64.deb
+
+#wps for linux
+wget http://kdl.cc.ksosoft.com/wps-community/download/a19/wps-office_9.1.0.4975~a19p1_amd64.deb
+dpkg -i wps-office_9.1.0.4975~a19p1_amd64.deb
+rm wps-office_9.1.0.4975~a19p1_amd64.deb
 
 #restricted-extras
 apt-get install ubuntu-restricted-extras -y
@@ -72,6 +86,9 @@ rm lantern-installer-64.deb
 #Shadowsocks proxychains
 apt-get install shadowsocks proxychains -y
 
+#tor
+#apt-get install tor -y
+
 #sshuttle
 apt-get install sshuttle -y
 
@@ -111,6 +128,9 @@ Categories=woobuntu;
 StartupNotify=true
 Terminal=false
 EOF
+
+#sublime-text
+#apt-get install sublime-text -y
 
 #Vim
 apt-get install vim git -y
@@ -452,6 +472,7 @@ apt-get install ttf-wqy-microhei -y
 
 #dev-tools - only for developers
 #apt-get install ia32-libs -y
+apt-get install golang-go -y
 #apt-get install bison build-essential curl flex git gnupg gperf libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk2.8-dev libxml2 libxml2-utils lzop openjdk-7-jdk openjdk-7-jre pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev -y
 apt-get install git-core build-essential libssl-dev libncurses5-dev unzip -y
 apt-get install subversion mercurial -y
@@ -603,10 +624,10 @@ dhcp-range=192.168.1.20,192.168.1.125,24h
 EOF
 
 #Fruitywifi
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-git clone https://github.com/xtr4nge/FruityWifi.git
-cd /root
+#mkdir -p /opt/woobuntu
+#cd /opt/woobuntu
+#git clone https://github.com/xtr4nge/FruityWifi.git
+#cd /root
 
 #android-tools
 mkdir -p /opt/woobuntu/android-tools
@@ -1072,14 +1093,101 @@ cd /usr/bin
 ln -s /opt/woobuntu/BBScan/BBScan.py bbscan
 cd /root
 
-#dzscan @matt
+#dzscan @matt @ca1n
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/code-scan/dzscan.git
 cd dzscan
 chmod a+x dzscan.py
-cd /root
+cd /usr/bin
 ln -s /opt/woobuntu/dzscan/dzscan.py dzscan
+cd /root
+
+#bcloud @帅气凌云
+git clone https://github.com/LiuLang/bcloud-packages.git
+cd bcloud-packages
+dpkg -i *.deb
+apt-get -f install -y
+cd /root
+
+#altman @Mr.K
+mkdir -p /opt/woobuntu
+mv altman /opt/woobuntu
+apt-get install mono-complete libgdiplus gtk-sharp2 -y
+cd /root
+cat > /usr/share/applications/altman.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=altman
+Icon=application-default-icon
+Exec=mono /opt/woobuntu/altman/Altman.Gtk.exe
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=false
+EOF
+
+#redsocks2
+apt-get install libevent-dev libssl-dev -y
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/semigodking/redsocks.git
+cd redsocks
+make
+cd /root
+cat > /opt/woobuntu/config/redsocks2.conf <<EOF
+base {
+        log_debug = off;
+        log_info = off;
+        log = "file:/dev/null";
+        daemon = off;
+        redirector = iptables;
+}
+
+redsocks {
+        local_ip = 0.0.0.0;
+        local_port = 12345;
+        ip = 127.0.0.1;
+        port = 1080;
+        type = socks5;
+        autoproxy = 1;
+        timeout = 5;
+}
+
+EOF
+
+cat > /opt/woobuntu/config/shadowsocks.json <<EOF
+{
+      "server": "108.22.156.14",
+      "server_port": 8080,
+      "password": "password",
+      "local_port": 1080,
+      "method": "table",
+      "timeout": "600"
+}
+
+EOF
+
+cat > /opt/woobuntu/EnTaroTassadar.sh <<EOF
+echo "R U alkaid?\n"
+iptables -t nat -N REDSOCKS
+iptables -t nat -A REDSOCKS -d 0.0.0.0/8 -j RETURN
+iptables -t nat -A REDSOCKS -d 10.0.0.0/8 -j RETURN
+iptables -t nat -A REDSOCKS -d 127.0.0.0/8 -j RETURN
+iptables -t nat -A REDSOCKS -d 169.254.0.0/16 -j RETURN
+iptables -t nat -A REDSOCKS -d 172.16.0.0/12 -j RETURN
+iptables -t nat -A REDSOCKS -d 192.168.0.0/16 -j RETURN
+iptables -t nat -A REDSOCKS -d 224.0.0.0/4 -j RETURN
+iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN
+iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 12345
+iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner alkaid -j REDSOCKS
+nohup /opt/woobuntu/redsocks/redsocks2 -c /opt/woobuntu/config/redsocks2.conf &
+nohup sslocal -c /opt/woobuntu/config/shadowsocks.json &
+echo "En Taro Tassadar!\n"
+EOF
+
+chmod +x /opt/woobuntu/EnTaroTassadar.sh
 
 #End of chroot env , cleanup and repack
 
