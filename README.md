@@ -22,8 +22,20 @@ sudo su root
 
 从中选取你需要的工具，然后复制粘贴即可
 
-## 已知存在的问题 ##
+## 软件中心 ##
 
-由于wine qq的压缩包太大（ > 100M），无法传至github，因此需要手动下载wine qq的安装包放在源码根目录下
+您可以在安装完Woobuntu之后使用软件中心安装可选的软件包，其中包括了wine QQ，WPS，搜狗输入法等，Woobuntu默认不再集成这些软件
+
+软件中心作为独立模块，位于
+
+https://github.com/lxj616/woobuntu-installer
+
+## wooyun-firefox Profile ##
+
+目前wooyun定制的firefox个人profile也独立成了一个模块
+
+位于
+
+https://github.com/lxj616/wooyun-firefox
 
 
