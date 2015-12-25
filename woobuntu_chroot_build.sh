@@ -25,9 +25,9 @@ apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fci
 #rm sogoupinyin_2.0.0.0068_amd64.deb
 
 #wps for linux
-wget http://kdl.cc.ksosoft.com/wps-community/download/a19/wps-office_9.1.0.4975~a19p1_amd64.deb
-dpkg -i wps-office_9.1.0.4975~a19p1_amd64.deb
-rm wps-office_9.1.0.4975~a19p1_amd64.deb
+#wget http://kdl.cc.ksosoft.com/wps-community/download/a19/wps-office_9.1.0.4975~a19p1_amd64.deb
+#dpkg -i wps-office_9.1.0.4975~a19p1_amd64.deb
+#rm wps-office_9.1.0.4975~a19p1_amd64.deb
 
 #restricted-extras
 apt-get install ubuntu-restricted-extras -y
@@ -40,37 +40,37 @@ apt-get install gksu -y
 
 #Web servers and languages
 #apt-get install apache2 php5 mysql-server php5-mysql -y
-cat > /usr/share/applications/apache2-start.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=apache2-start
-Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 start; exec bash"'
-Icon=application-default-icon
-EOF
+#cat > /usr/share/applications/apache2-start.desktop <<EOF
+#[Desktop Entry]
+#Type=Application
+#Name=apache2-start
+#Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 start; exec bash"'
+#Icon=application-default-icon
+#EOF
 
-cat > /usr/share/applications/apache2-stop.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=apache2-stop
-Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 stop; exec bash"'
-Icon=application-default-icon
-EOF
+#cat > /usr/share/applications/apache2-stop.desktop <<EOF
+#[Desktop Entry]
+#Type=Application
+#Name=apache2-stop
+#Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 stop; exec bash"'
+#Icon=application-default-icon
+#EOF
 
-cat > /usr/share/applications/mysql-start.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=mysql-start
-Exec=xfce4-terminal -e 'sh -c "gksudo service mysql start; exec bash"'
-Icon=application-default-icon
-EOF
+#cat > /usr/share/applications/mysql-start.desktop <<EOF
+#[Desktop Entry]
+#Type=Application
+#Name=mysql-start
+#Exec=xfce4-terminal -e 'sh -c "gksudo service mysql start; exec bash"'
+#Icon=application-default-icon
+#EOF
 
-cat > /usr/share/applications/mysql-stop.desktop <<EOF
-[Desktop Entry]
-Type=Application
-Name=mysql-stop
-Exec=xfce4-terminal -e 'sh -c "gksudo service mysql stop; exec bash"'
-Icon=application-default-icon
-EOF
+#cat > /usr/share/applications/mysql-stop.desktop <<EOF
+#[Desktop Entry]
+#Type=Application
+#Name=mysql-stop
+#Exec=xfce4-terminal -e 'sh -c "gksudo service mysql stop; exec bash"'
+#Icon=application-default-icon
+#EOF
 
 #Download tools & torrent downloader
 apt-get install uget aria2 curl -y
@@ -93,11 +93,11 @@ apt-get install shadowsocks proxychains -y
 apt-get install sshuttle -y
 
 #openssh-server
-apt-get install openssh-server -y
-service ssh stop
+#apt-get install openssh-server -y
+#service ssh stop
 
 #VLC
-apt-get install vlc -y
+#apt-get install vlc -y
 
 #Chromium-browser
 apt-get install chromium-browser -y
@@ -110,24 +110,24 @@ apt-get install cairo-dock -y
 apt-get install squashfs-tools dchroot mkisofs -y
 
 #VScode
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-wget https://az764295.vo.msecnd.net/public/0.10.3/VSCode-linux64.zip
-unzip VSCode-linux64.zip
-rm VSCode-linux64.zip
-cd /root
-cat > /usr/share/applications/vscode.desktop <<EOF
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=VSCode
-Icon=application-default-icon
-Exec=/opt/woobuntu/VSCode-linux-x64/Code
-NoDisplay=false
-Categories=woobuntu;
-StartupNotify=true
-Terminal=false
-EOF
+#mkdir -p /opt/woobuntu
+#cd /opt/woobuntu
+#wget https://az764295.vo.msecnd.net/public/0.10.3/VSCode-linux64.zip
+#unzip VSCode-linux64.zip
+#rm VSCode-linux64.zip
+#cd /root
+#cat > /usr/share/applications/vscode.desktop <<EOF
+#[Desktop Entry]
+#Version=1.0
+#Type=Application
+#Name=VSCode
+#Icon=application-default-icon
+#Exec=/opt/woobuntu/VSCode-linux-x64/Code
+#NoDisplay=false
+#Categories=woobuntu;
+#StartupNotify=true
+#Terminal=false
+#EOF
 
 #sublime-text
 #apt-get install sublime-text -y
@@ -498,6 +498,16 @@ apt-get install foremost -y
 #zenmap
 apt-get install zenmap -y
 
+#masscan @sharecast
+apt-get install git gcc make libpcap-dev -y
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/robertdavidgraham/masscan
+cd masscan
+make
+make install
+cd /root
+
 #httrack
 apt-get install httrack -y
 
@@ -517,7 +527,7 @@ apt-get install siege -y
 apt-get install medusa -y
 
 #binwalk
-apt-get install binwalk -y
+#apt-get install binwalk -y
 
 #radare2
 apt-get install radare2 -y
@@ -580,6 +590,7 @@ cd /root
 rm -rf aircrack-ng
 
 #mdk3
+git clone https://github.com/lxj616/mdk3-v6.git
 cd mdk3-v6
 make
 make install
@@ -724,13 +735,13 @@ cd /root
 #EOF
 
 #Metasploit-community
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-wget http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run
-chmod +x metasploit-latest-linux-x64-installer.run
+#mkdir -p /opt/woobuntu
+#cd /opt/woobuntu
+#wget http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run
+#chmod +x metasploit-latest-linux-x64-installer.run
 #./metasploit-latest-linux-x64-installer.run
 #rm metasploit-latest-linux-x64-installer.run
-cd /root
+#cd /root
 #cat > /usr/share/applications/service_metasploit_start.desktop <<EOF
 #[Desktop Entry]
 #Version=1.0
@@ -798,24 +809,24 @@ StartupNotify=true
 Terminal=true
 EOF
 #armitage
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-wget http://www.fastandeasyhacking.com/download/armitage150813.tgz
-tar -zxvf armitage150813.tgz
-rm armitage150813.tgz
-cd /root
-cat > /usr/share/applications/armitage.desktop <<EOF
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=armitage
-Icon=application-default-icon
-Exec=/bin/bash -c "service metasploit start;cd /opt/woobuntu/armitage;gksudo ./armitage"
-NoDisplay=false
-Categories=woobuntu;
-StartupNotify=true
-Terminal=false
-EOF
+#mkdir -p /opt/woobuntu
+#cd /opt/woobuntu
+#wget http://www.fastandeasyhacking.com/download/armitage150813.tgz
+#tar -zxvf armitage150813.tgz
+#rm armitage150813.tgz
+#cd /root
+#cat > /usr/share/applications/armitage.desktop <<EOF
+#[Desktop Entry]
+#Version=1.0
+#Type=Application
+#Name=armitage
+#Icon=application-default-icon
+#Exec=/bin/bash -c "service metasploit start;cd /opt/woobuntu/armitage;gksudo ./armitage"
+#NoDisplay=false
+#Categories=woobuntu;
+#StartupNotify=true
+#Terminal=false
+#EOF
 
 #Arachni
 mkdir -p /opt/woobuntu
@@ -889,14 +900,14 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/beefproject/beef
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.5
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.2.4
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.1.5
-rvm use 2.1.5 --default
+rvm install 2.2.4
+rvm use 2.2.4 --default
 cd /opt/woobuntu/beef
-rvm --default use ruby-2.1.5@beef
+rvm --default use ruby-2.2.4@beef
 gem install bundler
 bundle install
 cd /root
@@ -913,6 +924,22 @@ StartupNotify=true
 Terminal=true
 EOF
 chmod -R a+w /opt/woobuntu/beef
+
+#wpscan
+sudo apt-get install libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev -y
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/wpscanteam/wpscan.git
+sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.2.4
+source /usr/local/rvm/scripts/rvm
+rvm install 2.2.4
+rvm use 2.2.4 --default
+cd /opt/woobuntu/wpscan
+rvm --default use ruby-2.2.4@wpscan
+gem install bundler
+bundle install
+cd /root
 
 #Weevely
 apt-get install python-dev python-dateutil python-pip -y
@@ -946,15 +973,15 @@ apt-get install wine -y
 apt-get install zlib1g-dev:i386 -y
 
 #wine-qq
-cd /root
-unzip wine-qqintl.zip
-cd wine-qqintl
-dpkg -i wine-qqintl_0.1.3-2_i386.deb
-apt-get -f install -y 
-cd /root
-rm -rf wine-qqintl
-rm wine-qqintl.zip
-cd /root
+#cd /root
+#unzip wine-qqintl.zip
+#cd wine-qqintl
+#dpkg -i wine-qqintl_0.1.3-2_i386.deb
+#apt-get -f install -y 
+#cd /root
+#rm -rf wine-qqintl
+#rm wine-qqintl.zip
+#cd /root
 
 #firefox
 mv .mozilla /etc/skel
@@ -962,8 +989,8 @@ cd /etc/skel
 chmod -R 777 .mozilla
 cd /root
 mkdir -p /opt/woobuntu
-mv wooyun-firefox /opt/woobuntu
 cd /opt/woobuntu
+git clone https://github.com/lxj616/wooyun-firefox.git
 chmod -R 777 wooyun-firefox
 cd /root
 
@@ -1066,32 +1093,52 @@ spool /opt/woobuntu/log/console.log
 EOF
 
 #Additional software - NetEase-MusicBox @寂寞的瘦子
-pip install pycrypto
-sudo pip2 install NetEase-MusicBox
-sudo apt-get install mpg123 -y
-cat > /usr/share/applications/musicbox.desktop <<EOF
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=musicbox
-Icon=application-default-icon
-Exec=xfce4-terminal -e '/bin/bash -c "musicbox; exec bash"'
-NoDisplay=false
-Categories=woobuntu;
-StartupNotify=true
-Terminal=false
-EOF
+#sudo pip install pycrypto
+#sudo pip2 install NetEase-MusicBox
+#sudo apt-get install mpg123 -y
+#cat > /usr/share/applications/musicbox.desktop <<EOF
+#[Desktop Entry]
+#Version=1.0
+#Type=Application
+#Name=musicbox
+#Icon=application-default-icon
+#Exec=xfce4-terminal -e '/bin/bash -c "musicbox; exec bash"'
+#NoDisplay=false
+#Categories=woobuntu;
+#StartupNotify=true
+#Terminal=false
+#EOF
 
 #BBScan @lijiejie
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/lijiejie/BBScan.git
+chmod -R a+rw BBScan
 cd BBScan
 chmod a+x BBScan.py
 pip install -r requirements.txt
-cd /usr/bin
-ln -s /opt/woobuntu/BBScan/BBScan.py bbscan
 cd /root
+cat > /usr/bin/bbscan <<EOF
+#!/bin/sh
+cd /opt/woobuntu/BBScan
+python BBScan.py \$@
+EOF
+chmod 777 /usr/bin/bbscan
+
+#subDomainsBrute @lijiejie
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/lijiejie/subDomainsBrute.git
+chmod -R a+rw subDomainsBrute
+cd subDomainsBrute
+chmod a+x subDomainsBrute.py
+cd /root
+cat > /usr/bin/subDomainsBrute <<EOF
+#!/bin/sh
+cd /opt/woobuntu/subDomainsBrute
+python subDomainsBrute.py \$@
+EOF
+chmod 777 /usr/bin/subDomainsBrute
 
 #dzscan @matt @ca1n
 mkdir -p /opt/woobuntu
@@ -1104,29 +1151,71 @@ ln -s /opt/woobuntu/dzscan/dzscan.py dzscan
 cd /root
 
 #bcloud @帅气凌云
-git clone https://github.com/LiuLang/bcloud-packages.git
-cd bcloud-packages
-dpkg -i *.deb
-apt-get -f install -y
-cd /root
+#git clone https://github.com/LiuLang/bcloud-packages.git
+#cd bcloud-packages
+#dpkg -i *.deb
+#apt-get -f install -y
+#cd /root
+#rm -rf bcloud-packages
 
 #altman @Mr.K
+#mkdir -p /opt/woobuntu
+#mv altman /opt/woobuntu
+#apt-get install mono-complete libgdiplus gtk-sharp2 -y
+#cd /root
+#cat > /usr/share/applications/altman.desktop <<EOF
+#[Desktop Entry]
+#Version=1.0
+#Type=Application
+#Name=altman
+#Icon=application-default-icon
+#Exec=mono /opt/woobuntu/altman/Altman.Gtk.exe
+#NoDisplay=false
+#Categories=woobuntu;
+#StartupNotify=true
+#Terminal=false
+#EOF
+
+#androguard
+apt-get install python-dev libbz2-dev libmuparser-dev libsparsehash-dev python-ptrace python-pygments python-pydot graphviz liblzma-dev libsnappy-dev -y
+apt-get install python-pyside -y
 mkdir -p /opt/woobuntu
-mv altman /opt/woobuntu
-apt-get install mono-complete libgdiplus gtk-sharp2 -y
+cd /opt/woobuntu
+wget https://github.com/androguard/androguard/archive/v2.0.tar.gz
+tar -zxvf v2.0.tar.gz
+cd androguard-2.0
+python setup.py install
 cd /root
-cat > /usr/share/applications/altman.desktop <<EOF
+cat > /usr/share/applications/androguard-gui.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=altman
+Name=androguard-gui
 Icon=application-default-icon
-Exec=mono /opt/woobuntu/altman/Altman.Gtk.exe
+Exec=androgui.py
 NoDisplay=false
 Categories=woobuntu;
 StartupNotify=true
-Terminal=false
+Terminal=true
 EOF
+
+#drozer
+wget https://www.mwrinfosecurity.com/system/assets/931/original/drozer_2.3.4.deb
+dpkg -i drozer_2.3.4.deb
+apt-get -f install -y
+rm drozer_2.3.4.deb
+
+#andbug
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/anbc/AndBug.git
+cd AndBug
+make
+cd ..
+chmod -R a+rw AndBug
+cd /usr/bin
+ln -s /opt/woobuntu/AndBug/andbug andbug
+cd /root
 
 #redsocks2
 apt-get install libevent-dev libssl-dev -y
@@ -1188,6 +1277,28 @@ echo "En Taro Tassadar!\n"
 EOF
 
 chmod +x /opt/woobuntu/EnTaroTassadar.sh
+
+#woobuntu_installer
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/lxj616/woobuntu-installer.git
+cd woobuntu-installer
+qmake
+make
+cd /root
+cat > /etc/skel/Woobuntu安装向导.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Woobuntu安装向导
+Comment=
+Exec=/bin/bash -c "cd /opt/woobuntu_installer;gksudo /opt/woobuntu/woobuntu-installer/woobuntu_installer"
+Icon=applications-internet-symbolic
+Path=/opt/woobuntu/woobuntu-installer
+Terminal=false
+StartupNotify=false
+EOF
+chmod a+x /etc/skel/Woobuntu安装向导.desktop
 
 #End of chroot env , cleanup and repack
 
