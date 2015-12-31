@@ -555,7 +555,7 @@ Name=edb-debugger
 Icon=application-default-icon
 Exec=edb
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_reverse;
 StartupNotify=true
 Terminal=false
 EOF
@@ -570,7 +570,7 @@ Name=wireshark
 Icon=application-default-icon
 Exec=gksudo wireshark
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_network;
 StartupNotify=true
 Terminal=false
 EOF
@@ -665,7 +665,7 @@ Name=wifite
 Icon=application-default-icon
 Exec=xfce4-terminal -e 'sh -c "gksudo airmon-ng check kill;sudo wifite --aircrack;exec bash"'
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_network;
 StartupNotify=true
 Terminal=false
 EOF
@@ -695,7 +695,7 @@ Name=burp
 Icon=application-default-icon
 Exec=java -jar /opt/woobuntu/burp/burp.jar
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_web;
 StartupNotify=true
 Terminal=false
 EOF
@@ -804,7 +804,7 @@ Name=metasploit
 Icon=application-default-icon
 Exec=xfce4-terminal -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/metasploit-framework;./msfconsole; exec bash"'
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_exploitation;
 StartupNotify=true
 Terminal=true
 EOF
@@ -845,7 +845,7 @@ Name=arachni
 Icon=application-default-icon
 Exec=xfce4-terminal -e '/bin/bash -c "gksudo /opt/woobuntu/arachni/bin/arachni_web; exec bash"'
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_web;
 StartupNotify=true
 Terminal=true
 EOF
@@ -888,7 +888,7 @@ Name=spiderfoot
 Icon=application-default-icon
 Exec=xfce4-terminal -e '/bin/bash -c "/opt/woobuntu/spiderfoot/sf.py; exec bash"'
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_web;
 StartupNotify=true
 Terminal=true
 EOF
@@ -919,7 +919,7 @@ Name=beef
 Icon=application-default-icon
 Exec=xfce4-terminal -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/beef;./beef; exec bash"'
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_web;
 StartupNotify=true
 Terminal=true
 EOF
@@ -1034,9 +1034,55 @@ service metasploit stop
 #echo "manual" > /etc/init/mysql.override
 
 #Woobuntu menu
-sed '$s/<\/Menu>/    <Menu>\n        <Name>woobuntu<\/Name>\n        <Directory>woobuntu.directory<\/Directory>\n        <Include>\n            <Category>woobuntu<\/Category>\n        <\/Include>\n    <\/Menu>\n<\/Menu>/' /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu -i
-
-sed '$s/<\/Menu>/    <Menu>\n        <Name>woobuntu<\/Name>\n        <Directory>woobuntu.directory<\/Directory>\n        <Include>\n            <Category>woobuntu<\/Category>\n        <\/Include>\n    <\/Menu>\n<\/Menu>/' /etc/xdg/menus/xfce-applications.menu -i
+cat > /etc/xdg/menus/applications-merged/woobuntu.menu <<EOF
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+"http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+<Menu>
+  <Name>woobuntu</Name>
+  <Menu>
+    <Name>woobuntu</Name>
+    <Directory>woobuntu.directory</Directory>
+    <Include>
+      <Category>woobuntu</Category>
+    </Include>
+  <Menu>
+    <Name>woobuntu_web</Name>
+    <Directory>woobuntu_web.directory</Directory>
+    <Include>
+        <Category>woobuntu_web</Category>
+    </Include>
+  </Menu>
+  <Menu>
+    <Name>woobuntu_reverse</Name>
+    <Directory>woobuntu_reverse.directory</Directory>
+    <Include>
+        <Category>woobuntu_reverse</Category>
+    </Include>
+  </Menu>
+  <Menu>
+    <Name>woobuntu_network</Name>
+    <Directory>woobuntu_network.directory</Directory>
+    <Include>
+        <Category>woobuntu_network</Category>
+    </Include>
+  </Menu>
+  <Menu>
+    <Name>woobuntu_exploitation</Name>
+    <Directory>woobuntu_exploitation.directory</Directory>
+    <Include>
+        <Category>woobuntu_exploitation</Category>
+    </Include>
+  </Menu>
+  <Menu>
+    <Name>woobuntu_android</Name>
+    <Directory>woobuntu_android.directory</Directory>
+    <Include>
+        <Category>woobuntu_android</Category>
+    </Include>
+  </Menu>
+  </Menu>
+</Menu>
+EOF
 
 cat > /usr/share/desktop-directories/woobuntu.directory <<EOF
 [Desktop Entry]
@@ -1048,6 +1094,41 @@ NoDisplay=false
 Categories=X-XFCE;X-Xfce-Toplevel;
 StartupNotify=false
 Terminal=false
+EOF
+
+cat > /usr/share/desktop-directories/woobuntu_web.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Name=WEB安全工具
+Icon=folder
+EOF
+
+cat > /usr/share/desktop-directories/woobuntu_reverse.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Name=逆向及调试工具
+Icon=folder
+EOF
+
+cat > /usr/share/desktop-directories/woobuntu_network.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Name=网络及WIFI安全工具
+Icon=folder
+EOF
+
+cat > /usr/share/desktop-directories/woobuntu_exploitation.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Name=漏洞利用工具
+Icon=folder
+EOF
+
+cat > /usr/share/desktop-directories/woobuntu_android.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Name=Android安全工具
+Icon=folder
 EOF
 
 #resource
@@ -1179,6 +1260,7 @@ cd /root
 #androguard
 apt-get install python-dev libbz2-dev libmuparser-dev libsparsehash-dev python-ptrace python-pygments python-pydot graphviz liblzma-dev libsnappy-dev -y
 apt-get install python-pyside -y
+apt-get install ipython -y
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 wget https://github.com/androguard/androguard/archive/v2.0.tar.gz
@@ -1194,7 +1276,7 @@ Name=androguard-gui
 Icon=application-default-icon
 Exec=androgui.py
 NoDisplay=false
-Categories=woobuntu;
+Categories=woobuntu_android;
 StartupNotify=true
 Terminal=true
 EOF
