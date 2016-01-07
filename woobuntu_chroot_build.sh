@@ -78,6 +78,12 @@ apt-get install uget aria2 curl -y
 #rar 7z
 apt-get install rar unrar p7zip -y
 
+#keepnote
+apt-get install keepnote -y
+
+#keepass
+apt-get install keepassx -y
+
 #Lantern
 wget https://github.com/getlantern/lantern-binaries/raw/master/lantern-installer-64.deb
 dpkg -i lantern-installer-64.deb
@@ -132,6 +138,9 @@ apt-get install squashfs-tools dchroot mkisofs -y
 #sublime-text
 #apt-get install sublime-text -y
 
+#bless editor
+apt-get install bless -y
+
 #Vim
 apt-get install vim git -y
 
@@ -166,6 +175,17 @@ cp -r ~/.vim /etc/skel
 chmod -R 777 /etc/skel/.vim
 cp /root/.vimrc /etc/skel/
 chmod 666 /etc/skel/.vimrc
+cd /root
+
+#xdotool
+apt-get install libxtst-dev -y
+apt-get install xorg-dev -y
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/jordansissel/xdotool
+cd xdotool
+make
+make install
 cd /root
 
 #Terminalrc
@@ -633,6 +653,27 @@ expand-hosts
 domain=example.com 
 dhcp-range=192.168.1.20,192.168.1.125,24h 
 EOF
+
+#pixiewps
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/wiire/pixiewps
+cd pixiewps/
+cd src/
+make
+make install
+cd /root
+
+#reaver-wps-fork-t6x
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/t6x/reaver-wps-fork-t6x
+cd reaver-wps-fork-t6x*/
+cd src/
+./configure
+make
+make install
+cd /root
 
 #Fruitywifi
 #mkdir -p /opt/woobuntu
@@ -1265,6 +1306,7 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 wget https://github.com/androguard/androguard/archive/v2.0.tar.gz
 tar -zxvf v2.0.tar.gz
+rm v2.0.tar.gz
 cd androguard-2.0
 python setup.py install
 cd /root
@@ -1298,6 +1340,71 @@ chmod -R a+rw AndBug
 cd /usr/bin
 ln -s /opt/woobuntu/AndBug/andbug andbug
 cd /root
+
+#Responder
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/Spiderlabs/Responder
+chmod -R a+rw Responder
+cd Responder
+chmod a+x Responder.py
+cd /root
+
+#nikto
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/sullo/nikto
+chmod -R a+rw nikto
+cd nikto
+cp -r program/* .
+cd /root
+
+#dirs3arch
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/maurosoria/dirs3arch.git
+chmod -R a+rw dirs3arch
+cd /root
+
+#rainbowcrack
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+wget http://project-rainbowcrack.com/rainbowcrack-1.6.1-linux64.zip
+unzip rainbowcrack-1.6.1-linux64.zip
+rm rainbowcrack-1.6.1-linux64.zip
+cd rainbowcrack-1.6.1-linux64
+chmod a+x rt*
+chmod a+x rcrack
+cd /usr/bin
+ln -s /opt/woobuntu/rainbowcrack-1.6.1-linux64/rcrack rcrack
+ln -s /opt/woobuntu/rainbowcrack-1.6.1-linux64/rtgen rtgen
+ln -s /opt/woobuntu/rainbowcrack-1.6.1-linux64/rtsort rtsort
+ln -s /opt/woobuntu/rainbowcrack-1.6.1-linux64/rtc2rt rtc2rt
+ln -s /opt/woobuntu/rainbowcrack-1.6.1-linux64/rt2rtc rc2rtc
+cd /root
+
+#Ollydbg
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+wget http://down.52pojie.cn/Tools/Debuggers/%e5%90%be%e7%88%b1%e7%a0%b4%e8%a7%a3%e4%b8%93%e7%94%a8%e7%89%88Ollydbg.rar -O tmp.rar
+unrar x tmp.rar
+rm tmp.rar
+cd /root
+cat > /usr/share/applications/ollydbg.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ollydbg
+Icon=application-default-icon
+Exec=wine /opt/woobuntu/吾爱破解专用版Ollydbg/原版/汉化原版/Ollydbg.exe
+NoDisplay=false
+Categories=woobuntu_reverse;
+StartupNotify=true
+Terminal=false
+EOF
+
+#bettercap
+gem install bettercap
 
 #redsocks2
 apt-get install libevent-dev libssl-dev -y
