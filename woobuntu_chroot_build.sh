@@ -85,9 +85,9 @@ apt-get install keepnote -y
 apt-get install keepassx -y
 
 #Lantern
-wget https://github.com/getlantern/lantern-binaries/raw/master/lantern-installer-64.deb
-dpkg -i lantern-installer-64.deb
-rm lantern-installer-64.deb
+wget https://raw.githubusercontent.com/getlantern/lantern-binaries/master/lantern-installer-beta-64-bit.deb
+dpkg -i lantern-installer-beta-64-bit.deb
+rm lantern-installer-beta-64-bit.deb
 
 #Shadowsocks proxychains
 apt-get install shadowsocks proxychains -y
