@@ -18,6 +18,12 @@ apt-get update
 #Chinese language support
 apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fcitx-frontend-qt4 libreoffice-help-en-gb hyphen-en-us firefox-locale-zh-hans thunderbird-locale-en-us fcitx-ui-qimpanel thunderbird-locale-zh-cn fcitx-ui-classic fcitx-table-wubi thunderbird-locale-en-gb fonts-arphic-ukai mythes-en-au mythes-en-us libreoffice-help-en-us fcitx-frontend-qt5 libreoffice-l10n-en-gb wbritish thunderbird-locale-en fcitx-frontend-gtk3 fcitx-pinyin openoffice.org-hyphenation libreoffice-help-zh-cn fonts-arphic-uming libreoffice-l10n-zh-cn myspell-en-gb fcitx-sunpinyin myspell-en-za libreoffice-l10n-en-za fcitx-module-cloudpinyin hunspell-en-ca fcitx -y
 
+#Ubuntu kylin software center
+wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.3/+download/ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
+dpkg -i ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
+apt-get -f install -y
+rm ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
+
 #sougou-pinyin
 #wget http://cdn2.ime.sogou.com/dl/index/1446541585/sogoupinyin_2.0.0.0068_amd64.deb
 #dpkg -i sogoupinyin_2.0.0.0068_amd64.deb
@@ -186,6 +192,8 @@ git clone https://github.com/jordansissel/xdotool
 cd xdotool
 make
 make install
+cd ..
+rm -rf xdotool
 cd /root
 
 #Terminalrc
@@ -221,6 +229,7 @@ ScrollingLines=999999
 TabActivityColor=#0f4999
 ScrollingOnOutput=FALSE
 EOF
+cp -r /etc/skel/.config /root
 
 #zsh&oh-my-zsh @redrain_you_jie_cao
 apt-get install zsh git -y
@@ -526,6 +535,8 @@ git clone https://github.com/robertdavidgraham/masscan
 cd masscan
 make
 make install
+cd ..
+rm -rf masscan
 cd /root
 
 #httrack
@@ -566,6 +577,8 @@ popd
 qmake
 make
 make install
+cd ..
+rm -rf edb-debugger
 cd /root
 cat > /usr/share/applications/edb-debugger.desktop <<EOF
 [Desktop Entry]
@@ -662,6 +675,8 @@ cd pixiewps/
 cd src/
 make
 make install
+cd ..
+rm -rf pixiewps
 cd /root
 
 #reaver-wps-fork-t6x
@@ -673,6 +688,8 @@ cd src/
 ./configure
 make
 make install
+cd ..
+rm -rf reaver-wps-fork-t6x
 cd /root
 
 #Fruitywifi
@@ -820,7 +837,7 @@ cd /root
 #Terminal=true
 #EOF
 
-#Metasploit
+#Metasploit-framework
 apt-get install git ruby ruby-dev nmap git-core curl zlib1g-dev build-essential libpq5 libpq-dev libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev libpcap-dev autoconf libgmp-dev -y
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
@@ -837,7 +854,19 @@ rvm --default use ruby-2.1.7@metasploit-framework
 gem install bundler
 bundle install
 cd /root
-cat > /usr/share/applications/metasploit.desktop <<EOF
+for filename in $(ls /opt/woobuntu/metasploit-framework|grep msf)
+do
+
+cat > /usr/local/bin/$filename <<EOF
+#!/bin/bash
+source /etc/profile.d/rvm.sh
+cd /opt/woobuntu/metasploit-framework
+./$filename \$@
+EOF
+chmod a+x /usr/local/bin/$filename
+
+done
+cat > /usr/share/applications/msfconsole.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -1000,6 +1029,14 @@ apt-get install python-dev python-setuptools libpcap0.8-dev libnetfilter-queue-d
 #mkvirtualenv MITMf -p /usr/bin/python2.7
 git clone https://github.com/byt3bl33d3r/MITMf
 cd MITMf && git submodule init && git submodule update --recursive
+pip install -r requirements.txt
+cd /root
+
+#mitmproxy
+mkdir /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/mitmproxy/mitmproxy.git
+cd mitmproxy
 pip install -r requirements.txt
 cd /root
 
@@ -1406,6 +1443,38 @@ EOF
 #bettercap
 gem install bettercap
 
+#zed attack proxy
+mkdir /opt/woobuntu
+cd /opt/woobuntu
+wget https://github.com/zaproxy/zaproxy/releases/download/2.4.3/ZAP_2.4.3_Linux.tar.gz
+tar -zxvf ZAP_2.4.3_Linux.tar.gz
+rm ZAP_2.4.3_Linux.tar.gz
+cd /root
+cat > /usr/share/applications/zap.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ZAP
+Icon=application-default-icon
+Exec=/opt/woobuntu/ZAP_2.4.3/zap.sh
+NoDisplay=false
+Categories=woobuntu_web;
+StartupNotify=true
+Terminal=false
+EOF
+
+#mana-toolkit
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+apt-get install libnl-3-dev tinyproxy libssl-dev python-dnspython python-pcapy dsniff stunnel4 -y
+git clone --depth 1 https://github.com/sensepost/mana
+cd mana
+git submodule init
+git submodule update
+make
+make install
+cd /root
+
 #redsocks2
 apt-get install libevent-dev libssl-dev -y
 mkdir -p /opt/woobuntu
@@ -1489,10 +1558,20 @@ StartupNotify=false
 EOF
 chmod a+x /etc/skel/Woobuntu安装向导.desktop
 
+#version date
+date +%Y%m%d > /etc/woobuntu_version
+
+#virtualbox-guest-additions
+apt-get install virtualbox-guest-dkms -y
+apt-get install virtualbox-guest-x11 -y
+
+#nvidia driver
+apt-get install nvidia-352 -y
+
 #End of chroot env , cleanup and repack
 
 apt-get clean
-apt-get -d install apache2 php5 mysql-server php5-mysql -y
+apt-get -d install apache2 php5 mysql-server php5-mysql isc-dhcp-server -y
 apt-get -d install gcc-4.7 g++-4.7 dnsmasq hostapd libssl-dev wireless-tools iw nginx php5-fpm gettext make intltool build-essential automake autoconf uuid uuid-dev php5-curl php5-cli dos2unix curl sudo unzip lsb-release -y
 rm -rf /tmp/*
 echo "" > /etc/hosts
