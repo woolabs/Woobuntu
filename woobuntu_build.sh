@@ -17,11 +17,14 @@ echo "                                                 ";
 echo "Usage:"
 echo "-f	The ubuntu base image you wanna use for woobuntu build"
 echo "-o	The output woobuntu image"
-echo "-v	Show verbose info during build process"
+echo "-x	Xubuntu optimization for zh_CN & pre-configuration"
+echo "-g        gnome-ubuntu optimization for zh_CN & pre-configuration"
+echo "-N        Pre-install NVIDIA driver (Use with causion)"
+echo "-V        Pre-install Virtualbox-guest additions (Use with causion)"
 echo ""
 echo "Example:"
 echo ""
-echo "./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso"
+echo "./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -x"
 
 }
 
