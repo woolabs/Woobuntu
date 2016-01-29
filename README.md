@@ -5,6 +5,19 @@
     \ \/  \/ / _ \ / _ \| '_ \| | | | '_ \| __| | | |
      \  /\  / (_) | (_) | |_) | |_| | | | | |_| |_| |
       \/  \/ \___/ \___/|_.__/ \__,_|_| |_|\__|\__,_|
+      
+      Usage:
+    -f	The ubuntu base image you wanna use for woobuntu build
+    -o	The output woobuntu image
+    -x	Xubuntu optimization for zh_CN & pre-configuration
+    -g        gnome-ubuntu optimization for zh_CN & pre-configuration
+    -N        Pre-install NVIDIA driver (Use with causion)
+    -V        Pre-install Virtualbox-guest additions (Use with causion)
+
+    Example:
+
+    ./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
+
 
 Woobuntu is a automated script based on Ubuntu (currently 15.10) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider chooseing Kali Linux in English instead .
 
