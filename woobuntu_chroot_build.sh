@@ -1,22 +1,190 @@
-#!/bin/bash
+#!/bin/sh
 
-mount -t proc none /proc/
-mount -t sysfs none /sys/
+#Author : woolabs team 
+#Maintainer : lxj616@wooyun
+
+install_xfce_desktop=0
+install_gnome_desktop=0
+install_unity_desktop=0
+
+install_nvidia_driver=0
+install_virtualbox_additions=0
+
+show_help() {
+
+echo " __    __            _                 _         ";
+echo "/ / /\ \ \___   ___ | |__  _   _ _ __ | |_ _   _ ";
+echo "\ \/  \/ / _ \ / _ \| '_ \| | | | '_ \| __| | | |";
+echo " \  /\  / (_) | (_) | |_) | |_| | | | | |_| |_| |";
+echo "  \/  \/ \___/ \___/|_.__/ \__,_|_| |_|\__|\__,_|";
+echo "                                                 ";
+
+echo "Usage:"
+echo "-c        Used in chroot environment to mount proc & sysfs inside"
+echo "-x        Install Xubuntu related packages"
+echo "-g        Install gnome-ubuntu related packages"
+echo "-u        Install Ubuntu related packages"
+echo ""
+echo "Example:"
+echo ""
+echo "./woobuntu_chroot_build.sh -x"
+
+}
+
+do_chroot_mount() {
+
+    mount -t proc none /proc/
+    mount -t sysfs none /sys/
+
+}
+
+if [ $# = 0 ]
+then
+    show_help
+    exit 0
+fi
+
+while getopts "h?cxguNV" opt; do
+    case "$opt" in
+    h|\?)
+        show_help
+        exit 0
+        ;;
+    c)  do_chroot_mount
+        ;;
+    x)  install_xfce_desktop=1
+        ;;
+    g)  install_gnome_desktop=1
+        ;;
+    u)  install_unity_desktop=1
+        ;;
+    N)  install_nvidia_driver=1
+        ;;
+    V)  install_virutalbox_additions=1
+        ;;
+    esac
+done
 
 #Here is the chroot env , do something here
 
-
-#vnc
-apt-get install vnc4server -y
 #Everything inside /root dir
 cd /root
 
-#Update before fetching packages
-#apt-get update -y
-apt-get update
+#Override default repositories
+cat > /etc/apt/sources.list <<EOF
+# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+# newer versions of the distribution.
+deb http://cn.archive.ubuntu.com/ubuntu/ wily main restricted
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily main restricted
 
-#Chinese language support
-apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fcitx-frontend-qt4 libreoffice-help-en-gb hyphen-en-us firefox-locale-zh-hans thunderbird-locale-en-us fcitx-ui-qimpanel thunderbird-locale-zh-cn fcitx-ui-classic fcitx-table-wubi thunderbird-locale-en-gb fonts-arphic-ukai mythes-en-au mythes-en-us libreoffice-help-en-us fcitx-frontend-qt5 libreoffice-l10n-en-gb wbritish thunderbird-locale-en fcitx-frontend-gtk3 fcitx-pinyin openoffice.org-hyphenation libreoffice-help-zh-cn fonts-arphic-uming libreoffice-l10n-zh-cn myspell-en-gb fcitx-sunpinyin myspell-en-za libreoffice-l10n-en-za fcitx-module-cloudpinyin hunspell-en-ca fcitx -y
+## Major bug fix updates produced after the final release of the
+## distribution.
+deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates main restricted
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates main restricted
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team. Also, please note that software in universe WILL NOT receive any
+## review or updates from the Ubuntu security team.
+deb http://cn.archive.ubuntu.com/ubuntu/ wily universe
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily universe
+deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates universe
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates universe
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team, and may not be under a free licence. Please satisfy yourself as to
+## your rights to use the software. Also, please note that software in
+## multiverse WILL NOT receive any review or updates from the Ubuntu
+## security team.
+deb http://cn.archive.ubuntu.com/ubuntu/ wily multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates multiverse
+
+## N.B. software from this repository may not have been tested as
+## extensively as that contained in the main release, although it includes
+## newer versions of some applications which may provide useful features.
+## Also, please note that software in backports WILL NOT receive any review
+## or updates from the Ubuntu security team.
+deb http://cn.archive.ubuntu.com/ubuntu/ wily-backports main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu wily-security main restricted
+deb-src http://security.ubuntu.com/ubuntu wily-security main restricted
+deb http://security.ubuntu.com/ubuntu wily-security universe
+deb-src http://security.ubuntu.com/ubuntu wily-security universe
+deb http://security.ubuntu.com/ubuntu wily-security multiverse
+deb-src http://security.ubuntu.com/ubuntu wily-security multiverse
+
+## Uncomment the following two lines to add software from Canonical's
+## 'partner' repository.
+## This software is not part of Ubuntu, but is offered by Canonical and the
+## respective vendors as a service to Ubuntu users.
+deb http://archive.canonical.com/ubuntu wily partner
+deb-src http://archive.canonical.com/ubuntu wily partner
+
+EOF
+#Update before fetching packages
+apt-get update -y
+#apt-get update
+
+terminalcmd="xfce4-terminal"
+
+if [ $install_xfce_desktop -eq 1 ]
+then
+
+    #Chinese language support
+    apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fcitx-frontend-qt4 libreoffice-help-en-gb hyphen-en-us firefox-locale-zh-hans thunderbird-locale-en-us fcitx-ui-qimpanel thunderbird-locale-zh-cn fcitx-ui-classic fcitx-table-wubi thunderbird-locale-en-gb fonts-arphic-ukai mythes-en-au mythes-en-us libreoffice-help-en-us fcitx-frontend-qt5 libreoffice-l10n-en-gb wbritish thunderbird-locale-en fcitx-frontend-gtk3 fcitx-pinyin openoffice.org-hyphenation libreoffice-help-zh-cn fonts-arphic-uming libreoffice-l10n-zh-cn myspell-en-gb fcitx-sunpinyin myspell-en-za libreoffice-l10n-en-za fcitx-module-cloudpinyin hunspell-en-ca fcitx -y
+
+    #Terminalrc
+    mkdir -p /etc/skel/.config/xfce4/terminal
+    cat > /etc/skel/.config/xfce4/terminal/terminalrc <<EOF
+[Configuration]
+ColorForeground=#b7b7b7
+ColorBackground=#131926
+ColorCursor=#0f4999
+ColorSelection=#163b59
+ColorSelectionUseDefault=FALSE
+ColorBoldUseDefault=FALSE
+ColorPalette=#000000000000;#aaaa00000000;#4444aaaa4444;#aaaa55550000;#11156066fda5;#aaaa2222aaaa;#1a1a9292aaaa;#aaaaaaaaaaaa;#777777777777;#ffff87878787;#4c4ce6e64c4c;#deded8d82c2c;#25ed925efe50;#cccc5858cccc;#4c4ccccce6e6;#ffffffffffff
+FontName=文泉驿等宽微米黑 11
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
+MiscDefaultGeometry=80x24
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=TRUE
+MiscMouseAutohide=FALSE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE
+MiscScrollAlternateScreen=TRUE
+ScrollingLines=999999
+TabActivityColor=#0f4999
+ScrollingOnOutput=FALSE
+EOF
+    cp -r /etc/skel/.config /root
+    #Set terminal command in every .desktop entry
+    terminalcmd="xfce4-terminal"
+
+fi 
+
+if [ $install_gnome_desktop -eq 1 ]
+then
+    #Chinese language support
+    apt-get install fcitx fcitx-bin fcitx-config-common fcitx-config-gtk fcitx-data fcitx-frontend-all fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt4 fcitx-frontend-qt5 fcitx-module-cloudpinyin fcitx-module-dbus fcitx-module-kimpanel fcitx-module-lua fcitx-modules fcitx-module-x11 fcitx-pinyin fcitx-sunpinyin fcitx-table fcitx-table-wubi fcitx-ui-classic fcitx-ui-qimpanel firefox-locale-en firefox-locale-zh-hans fonts-arphic-ukai fonts-arphic-uming hyphen-en-us libdouble-conversion1v5 libfcitx-config4 libfcitx-core0 libfcitx-gclient0 libfcitx-qt0 libfcitx-qt5-1 libfcitx-utils0 libpresage1 libpresage-data libqt5qml5 libqt5quick5 libqt5quickwidgets5 libreoffice-help-zh-cn libreoffice-l10n-zh-cn libsunpinyin3 libtinyxml2.6.2v5 myspell-en-au myspell-en-gb myspell-en-za mythes-en-us openoffice.org-hyphenation presage sunpinyin-data wbritish -y --force-yes
+    #Set terminal command in every .desktop entry
+    terminalcmd="gnome-terminal"
+
+fi
+
+#vnc
+apt-get install vnc4server -y
 
 #Ubuntu kylin software center
 wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.3/+download/ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
@@ -50,7 +218,7 @@ apt-get install gksu -y
 #[Desktop Entry]
 #Type=Application
 #Name=apache2-start
-#Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 start; exec bash"'
+#Exec=$terminalcmd -e 'sh -c "gksudo service apache2 start; exec bash"'
 #Icon=application-default-icon
 #EOF
 
@@ -58,7 +226,7 @@ apt-get install gksu -y
 #[Desktop Entry]
 #Type=Application
 #Name=apache2-stop
-#Exec=xfce4-terminal -e 'sh -c "gksudo service apache2 stop; exec bash"'
+#Exec=$terminalcmd -e 'sh -c "gksudo service apache2 stop; exec bash"'
 #Icon=application-default-icon
 #EOF
 
@@ -66,7 +234,7 @@ apt-get install gksu -y
 #[Desktop Entry]
 #Type=Application
 #Name=mysql-start
-#Exec=xfce4-terminal -e 'sh -c "gksudo service mysql start; exec bash"'
+#Exec=$terminalcmd -e 'sh -c "gksudo service mysql start; exec bash"'
 #Icon=application-default-icon
 #EOF
 
@@ -74,7 +242,7 @@ apt-get install gksu -y
 #[Desktop Entry]
 #Type=Application
 #Name=mysql-stop
-#Exec=xfce4-terminal -e 'sh -c "gksudo service mysql stop; exec bash"'
+#Exec=$terminalcmd -e 'sh -c "gksudo service mysql stop; exec bash"'
 #Icon=application-default-icon
 #EOF
 
@@ -195,41 +363,6 @@ make install
 cd ..
 rm -rf xdotool
 cd /root
-
-#Terminalrc
-mkdir -p /etc/skel/.config/xfce4/terminal
-cat > /etc/skel/.config/xfce4/terminal/terminalrc <<EOF
-[Configuration]
-ColorForeground=#b7b7b7
-ColorBackground=#131926
-ColorCursor=#0f4999
-ColorSelection=#163b59
-ColorSelectionUseDefault=FALSE
-ColorBoldUseDefault=FALSE
-ColorPalette=#000000000000;#aaaa00000000;#4444aaaa4444;#aaaa55550000;#11156066fda5;#aaaa2222aaaa;#1a1a9292aaaa;#aaaaaaaaaaaa;#777777777777;#ffff87878787;#4c4ce6e64c4c;#deded8d82c2c;#25ed925efe50;#cccc5858cccc;#4c4ccccce6e6;#ffffffffffff
-FontName=文泉驿等宽微米黑 11
-MiscAlwaysShowTabs=FALSE
-MiscBell=FALSE
-MiscBordersDefault=TRUE
-MiscCursorBlinks=FALSE
-MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
-MiscDefaultGeometry=80x24
-MiscInheritGeometry=FALSE
-MiscMenubarDefault=TRUE
-MiscMouseAutohide=FALSE
-MiscToolbarDefault=FALSE
-MiscConfirmClose=TRUE
-MiscCycleTabs=TRUE
-MiscTabCloseButtons=TRUE
-MiscTabCloseMiddleClick=TRUE
-MiscTabPosition=GTK_POS_TOP
-MiscHighlightUrls=TRUE
-MiscScrollAlternateScreen=TRUE
-ScrollingLines=999999
-TabActivityColor=#0f4999
-ScrollingOnOutput=FALSE
-EOF
-cp -r /etc/skel/.config /root
 
 #zsh&oh-my-zsh @redrain_you_jie_cao
 apt-get install zsh git -y
@@ -721,7 +854,7 @@ Version=1.0
 Type=Application
 Name=wifite
 Icon=application-default-icon
-Exec=xfce4-terminal -e 'sh -c "gksudo airmon-ng check kill;sudo wifite --aircrack;exec bash"'
+Exec=$terminalcmd -e 'sh -c "gksudo airmon-ng check kill;sudo wifite --aircrack;exec bash"'
 NoDisplay=false
 Categories=woobuntu_network;
 StartupNotify=true
@@ -785,7 +918,7 @@ cd /root
 #Type=Application
 #Name=docker-metasploit
 #Icon=application-default-icon
-#Exec=xfce4-terminal -e 'sh -c "sudo docker run --rm --name=lxj616 --cap-add=ALL --privileged=true -t -i lxj616/docker-kali-custom-tools /usr/bin/msfconsole;exec bash"'
+#Exec=$terminalcmd -e 'sh -c "sudo docker run --rm --name=lxj616 --cap-add=ALL --privileged=true -t -i lxj616/docker-kali-custom-tools /usr/bin/msfconsole;exec bash"'
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
@@ -806,7 +939,7 @@ cd /root
 #Type=Application
 #Name=service_metasploit_start
 #Icon=application-default-icon
-#Exec=xfce4-terminal -e '/bin/bash -c "service metasploit start; exec bash"'
+#Exec=$terminalcmd -e '/bin/bash -c "service metasploit start; exec bash"'
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
@@ -818,7 +951,7 @@ cd /root
 #Type=Application
 #Name=service_metasploit_stop
 #Icon=application-default-icon
-#Exec=xfce4-terminal -e '/bin/bash -c "service metasploit stop; exec bash"'
+#Exec=$terminalcmd -e '/bin/bash -c "service metasploit stop; exec bash"'
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
@@ -830,7 +963,7 @@ cd /root
 #Type=Application
 #Name=metasploit_console
 #Icon=application-default-icon
-#Exec=xfce4-terminal -e '/bin/bash -c "sudo msfconsole; exec bash"'
+#Exec=$terminalcmd -e '/bin/bash -c "sudo msfconsole; exec bash"'
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
@@ -872,7 +1005,7 @@ Version=1.0
 Type=Application
 Name=metasploit
 Icon=application-default-icon
-Exec=xfce4-terminal -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/metasploit-framework;./msfconsole; exec bash"'
+Exec=$terminalcmd -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/metasploit-framework;./msfconsole; exec bash"'
 NoDisplay=false
 Categories=woobuntu_exploitation;
 StartupNotify=true
@@ -913,7 +1046,7 @@ Version=1.0
 Type=Application
 Name=arachni
 Icon=application-default-icon
-Exec=xfce4-terminal -e '/bin/bash -c "gksudo /opt/woobuntu/arachni/bin/arachni_web; exec bash"'
+Exec=$terminalcmd -e '/bin/bash -c "gksudo /opt/woobuntu/arachni/bin/arachni_web; exec bash"'
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
@@ -956,7 +1089,7 @@ Version=1.0
 Type=Application
 Name=spiderfoot
 Icon=application-default-icon
-Exec=xfce4-terminal -e '/bin/bash -c "/opt/woobuntu/spiderfoot/sf.py; exec bash"'
+Exec=$terminalcmd -e '/bin/bash -c "/opt/woobuntu/spiderfoot/sf.py; exec bash"'
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
@@ -987,7 +1120,7 @@ Version=1.0
 Type=Application
 Name=beef
 Icon=application-default-icon
-Exec=xfce4-terminal -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/beef;./beef; exec bash"'
+Exec=$terminalcmd -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobuntu/beef;./beef; exec bash"'
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
@@ -1261,7 +1394,7 @@ EOF
 #Type=Application
 #Name=musicbox
 #Icon=application-default-icon
-#Exec=xfce4-terminal -e '/bin/bash -c "musicbox; exec bash"'
+#Exec=$terminalcmd -e '/bin/bash -c "musicbox; exec bash"'
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
@@ -1544,7 +1677,11 @@ cd woobuntu-installer
 qmake
 make
 cd /root
-cat > /etc/skel/Woobuntu安装向导.desktop <<EOF
+
+if [ $install_xfce_desktop -eq 1 ]
+then
+
+    cat > /etc/skel/Woobuntu安装向导.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -1556,17 +1693,47 @@ Path=/opt/woobuntu/woobuntu-installer
 Terminal=false
 StartupNotify=false
 EOF
-chmod a+x /etc/skel/Woobuntu安装向导.desktop
+  chmod a+x /etc/skel/Woobuntu安装向导.desktop
+
+fi
+
+if [ $install_gnome_desktop -eq 1 ]
+then
+
+    cat > /usr/share/applications/woobuntu_installer.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=woobuntu软件中心
+Icon=application-default-icon
+Exec=gnome-terminal -e '/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;gksudo ./woobuntu_installer"'
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=true
+EOF
+
+fi
 
 #version date
 date +%Y%m%d > /etc/woobuntu_version
+
+if [ $install_virtualbox_additions -eq 1 ]
+then
 
 #virtualbox-guest-additions
 apt-get install virtualbox-guest-dkms -y
 apt-get install virtualbox-guest-x11 -y
 
+fi
+
+if [ $install_nvidia_driver -eq 1 ]
+then
+
 #nvidia driver
 apt-get install nvidia-352 -y
+
+fi
 
 #End of chroot env , cleanup and repack
 
@@ -1579,7 +1746,5 @@ cat > /etc/resolv.conf <<EOF
 nameserver 8.8.8.8
 nameserver 114.114.114.114
 EOF
-umount /proc/
-umount /sys/
 exit
 
