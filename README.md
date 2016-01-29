@@ -1,5 +1,11 @@
 # Woobuntu #
 
+     __    __            _                 _         
+    / / /\ \ \___   ___ | |__  _   _ _ __ | |_ _   _ 
+    \ \/  \/ / _ \ / _ \| '_ \| | | | '_ \| __| | | |
+     \  /\  / (_) | (_) | |_) | |_| | | | | |_| |_| |
+      \/  \/ \___/ \___/|_.__/ \__,_|_| |_|\__|\__,_|
+
 Woobuntu is a automated script based on Ubuntu (currently 15.10) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider chooseing Kali Linux in English instead .
 
 Woobuntu 是一个基于Ubuntu（目前是15.10版本）的自动配置脚本，它可以自动化安装并配置中文语言环境的安全工具与依赖环境。
