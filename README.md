@@ -12,25 +12,25 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
 
 20160129 : 新增 gnome-ubuntu 15.10 支持
 
-vim woobuntu_chroot_build.sh
+    vim woobuntu_chroot_build.sh
 
 注释掉你不需要的工具，或者自己添加你想要的工具
 
 脚本需要root权限运行
 
-sudo su root
+    sudo su root
 
 以xubuntu为例:
 
-./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
+    ./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
 
 以gnome-ubuntu为例:
 
-./woobuntu_build.sh -f ubuntu-gnome-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -g
+    ./woobuntu_build.sh -f ubuntu-gnome-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -g
 
 更多帮助信息请参阅脚本运行提示:
 
-./woobuntu_build.sh -h
+    ./woobuntu_build.sh -h
 
 ## 自动安装至已有的Ubuntu系统（仅供有经验的Ubuntu用户使用） ##
                                                  
@@ -49,7 +49,7 @@ sudo su root
 
 ## 手动安装至已有的Ubuntu系统 ##
 
-vim woobuntu_chroot_build.sh
+    vim woobuntu_chroot_build.sh
 
 从中选取你需要的工具，然后复制粘贴即可
 
