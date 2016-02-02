@@ -23,6 +23,7 @@ echo "Usage:"
 echo "-c        Used in chroot environment to mount proc & sysfs inside"
 echo "-x        Install Xubuntu related packages"
 echo "-g        Install gnome-ubuntu related packages"
+echo "-u        Install Ubuntu original related packages"
 echo "-N        Pre-install NVIDIA driver (Use with causion)"
 echo "-V        Pre-install Virtualbox-guest additions (Use with causion)"
 echo ""
@@ -179,6 +180,15 @@ if [ $install_gnome_desktop -eq 1 ]
 then
     #Chinese language support
     apt-get install fcitx fcitx-bin fcitx-config-common fcitx-config-gtk fcitx-data fcitx-frontend-all fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt4 fcitx-frontend-qt5 fcitx-module-cloudpinyin fcitx-module-dbus fcitx-module-kimpanel fcitx-module-lua fcitx-modules fcitx-module-x11 fcitx-pinyin fcitx-sunpinyin fcitx-table fcitx-table-wubi fcitx-ui-classic fcitx-ui-qimpanel firefox-locale-en firefox-locale-zh-hans fonts-arphic-ukai fonts-arphic-uming hyphen-en-us libdouble-conversion1v5 libfcitx-config4 libfcitx-core0 libfcitx-gclient0 libfcitx-qt0 libfcitx-qt5-1 libfcitx-utils0 libpresage1 libpresage-data libqt5qml5 libqt5quick5 libqt5quickwidgets5 libreoffice-help-zh-cn libreoffice-l10n-zh-cn libsunpinyin3 libtinyxml2.6.2v5 myspell-en-au myspell-en-gb myspell-en-za mythes-en-us openoffice.org-hyphenation presage sunpinyin-data wbritish -y --force-yes
+    #Set terminal command in every .desktop entry
+    terminalcmd="gnome-terminal"
+
+fi
+
+if [ $install_unity_desktop -eq 1 ]
+then
+    #Chinese language support
+    apt-get install libreoffice-l10n-zh-cn hunspell-en-ca thunderbird-locale-en-us thunderbird-locale-zh-cn firefox-locale-zh-hans openoffice.org-hyphenation mythes-en-us wbritish thunderbird-locale-zh-hans fcitx-table-wubi thunderbird-locale-en-gb firefox-locale-en hyphen-en-us fonts-arphic-uming myspell-en-za fonts-arphic-ukai myspell-en-au thunderbird-locale-en mythes-en-au libreoffice-l10n-en-za myspell-en-gb libreoffice-help-zh-cn fcitx-sunpinyin libreoffice-help-en-gb libreoffice-l10n-en-gb -y
     #Set terminal command in every .desktop entry
     terminalcmd="gnome-terminal"
 
@@ -1699,6 +1709,24 @@ EOF
 fi
 
 if [ $install_gnome_desktop -eq 1 ]
+then
+
+    cat > /usr/share/applications/woobuntu_installer.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=woobuntu软件中心
+Icon=application-default-icon
+Exec=gnome-terminal -e '/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;gksudo ./woobuntu_installer"'
+NoDisplay=false
+Categories=woobuntu;
+StartupNotify=true
+Terminal=true
+EOF
+
+fi
+
+if [ $install_unity_desktop -eq 1 ]
 then
 
     cat > /usr/share/applications/woobuntu_installer.desktop <<EOF

@@ -11,6 +11,7 @@
     -o	The output woobuntu image
     -x	Xubuntu optimization for zh_CN & pre-configuration
     -g        gnome-ubuntu optimization for zh_CN & pre-configuration
+    -u        Ubuntu original optimization for zh_CN & pre-configuration
     -N        Pre-install NVIDIA driver (Use with causion)
     -V        Pre-install Virtualbox-guest additions (Use with causion)
 
@@ -30,6 +31,8 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
 首先你需要下载一个Ubuntu安装镜像，推荐xubuntu-15.10-desktop-amd64.iso，但是理论上其他桌面版本的Ubuntu均支持
 
 20160129 : 新增 gnome-ubuntu 15.10 支持
+
+20160202 : 新增 Ubuntu 15.10 original unity desktop 支持
 
     vim woobuntu_chroot_build.sh
 
@@ -59,6 +62,7 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
     -c        Used in chroot environment to mount proc & sysfs inside
     -x        Install Xubuntu related packages
     -g        Install gnome-ubuntu related packages
+    -u        Install Ubuntu original related packages
     -N        Pre-install NVIDIA driver (Use with causion)
     -V        Pre-install Virtualbox-guest additions (Use with causion)
 
@@ -76,7 +80,7 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
 
 您可以在安装完Woobuntu之后使用软件中心安装可选的软件包，其中包括了wine QQ，WPS，搜狗输入法等，Woobuntu默认不再集成这些软件
 
-20160129 : 在gnome-ubuntu下woobuntu软件中心有BUG，暂时无法使用
+20160202 : woobuntu软件中心fixed
 
 软件中心作为独立模块，位于
 
