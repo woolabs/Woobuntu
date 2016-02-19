@@ -76,53 +76,56 @@ cd /root
 cat > /etc/apt/sources.list <<EOF
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
-deb http://cn.archive.ubuntu.com/ubuntu/ wily main restricted
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily main restricted
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
 
 ## Major bug fix updates produced after the final release of the
 ## distribution.
-deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates main restricted
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates main restricted
-
-## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
-## team. Also, please note that software in universe WILL NOT receive any
-## review or updates from the Ubuntu security team.
-deb http://cn.archive.ubuntu.com/ubuntu/ wily universe
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily universe
-deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates universe
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates universe
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
 ## your rights to use the software. Also, please note that software in
+## universe WILL NOT receive any review or updates from the Ubuntu security
+## team.
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial universe
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial universe
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu 
+## team, and may not be under a free licence. Please satisfy yourself as to 
+## your rights to use the software. Also, please note that software in 
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
-deb http://cn.archive.ubuntu.com/ubuntu/ wily multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ wily-updates multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-updates multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
 ## newer versions of some applications which may provide useful features.
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
-deb http://cn.archive.ubuntu.com/ubuntu/ wily-backports main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ wily-backports main restricted universe multiverse
-
-deb http://security.ubuntu.com/ubuntu wily-security main restricted
-deb-src http://security.ubuntu.com/ubuntu wily-security main restricted
-deb http://security.ubuntu.com/ubuntu wily-security universe
-deb-src http://security.ubuntu.com/ubuntu wily-security universe
-deb http://security.ubuntu.com/ubuntu wily-security multiverse
-deb-src http://security.ubuntu.com/ubuntu wily-security multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
 
 ## Uncomment the following two lines to add software from Canonical's
 ## 'partner' repository.
 ## This software is not part of Ubuntu, but is offered by Canonical and the
 ## respective vendors as a service to Ubuntu users.
-deb http://archive.canonical.com/ubuntu wily partner
-deb-src http://archive.canonical.com/ubuntu wily partner
+# deb http://archive.canonical.com/ubuntu xenial partner
+# deb-src http://archive.canonical.com/ubuntu xenial partner
+
+deb http://security.ubuntu.com/ubuntu xenial-security main restricted
+deb-src http://security.ubuntu.com/ubuntu xenial-security main restricted
+deb http://security.ubuntu.com/ubuntu xenial-security universe
+deb-src http://security.ubuntu.com/ubuntu xenial-security universe
+deb http://security.ubuntu.com/ubuntu xenial-security multiverse
+deb-src http://security.ubuntu.com/ubuntu xenial-security multiverse
+
 
 EOF
 #Update before fetching packages
@@ -135,7 +138,7 @@ if [ $install_xfce_desktop -eq 1 ]
 then
 
     #Chinese language support
-    apt-get install fcitx-frontend-gtk2 myspell-en-au thunderbird-locale-zh-hans fcitx-frontend-qt4 libreoffice-help-en-gb hyphen-en-us firefox-locale-zh-hans thunderbird-locale-en-us fcitx-ui-qimpanel thunderbird-locale-zh-cn fcitx-ui-classic fcitx-table-wubi thunderbird-locale-en-gb fonts-arphic-ukai mythes-en-au mythes-en-us libreoffice-help-en-us fcitx-frontend-qt5 libreoffice-l10n-en-gb wbritish thunderbird-locale-en fcitx-frontend-gtk3 fcitx-pinyin openoffice.org-hyphenation libreoffice-help-zh-cn fonts-arphic-uming libreoffice-l10n-zh-cn myspell-en-gb fcitx-sunpinyin myspell-en-za libreoffice-l10n-en-za fcitx-module-cloudpinyin hunspell-en-ca fcitx -y
+    apt-get install firefox-locale-zh-hans libreoffice-help-en-us fcitx-sunpinyin thunderbird-locale-en fcitx fcitx-ui-classic wbritish myspell-en-za myspell-en-gb hunspell-en-ca fcitx-frontend-gtk2 fcitx-module-cloudpinyin fonts-arphic-ukai fcitx-pinyin thunderbird-locale-en-us mythes-en-au fcitx-table-wubi thunderbird-locale-zh-hans myspell-en-au thunderbird-locale-zh-cn libreoffice-l10n-en-gb fcitx-frontend-qt4 libreoffice-l10n-zh-cn libreoffice-help-en-gb libreoffice-help-zh-cn libreoffice-l10n-en-za openoffice.org-hyphenation mythes-en-us fcitx-frontend-qt5 thunderbird-locale-en-gb hyphen-en-us fcitx-frontend-gtk3 fonts-arphic-uming fonts-noto-cjk fcitx-ui-qimpanel -y
 
     #Terminalrc
     mkdir -p /etc/skel/.config/xfce4/terminal
@@ -351,16 +354,19 @@ colorscheme evening
 EOF
 
 #vim plugin
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-vim +PluginInstall +qall
-apt-get install build-essential python-dev cmake -y
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
-cp -r ~/.vim /etc/skel
-chmod -R 777 /etc/skel/.vim
-cp /root/.vimrc /etc/skel/
-chmod 666 /etc/skel/.vimrc
-cd /root
+#git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+#vim +PluginInstall +qall
+#apt-get install build-essential python-dev cmake -y
+#cd ~/.vim/bundle/YouCompleteMe
+#./install.py --clang-completer
+#cp -r ~/.vim /etc/skel
+#chmod -R 777 /etc/skel/.vim
+#cp /root/.vimrc /etc/skel/
+#chmod 666 /etc/skel/.vimrc
+#cd /root
+apt-get install vim-syntastic vim-youcompleteme -y
+vam install youcompleteme
+vam install syntastic
 
 #xdotool
 apt-get install libxtst-dev -y
@@ -1144,6 +1150,7 @@ sudo apt-get install libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/wpscanteam/wpscan.git
+chmod -R a+rw wpscan
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.2.4
 source /usr/local/rvm/scripts/rvm
@@ -1154,6 +1161,15 @@ rvm --default use ruby-2.2.4@wpscan
 gem install bundler
 bundle install
 cd /root
+
+cat > /usr/bin/wpscan <<EOF
+#!/bin/bash
+source /etc/profile.d/rvm.sh
+cd /opt/woobuntu/wpscan
+./wpscan \$@
+EOF
+chmod a+x /usr/bin/wpscan
+
 
 #Weevely
 apt-get install python-dev python-dateutil python-pip -y
@@ -1214,14 +1230,6 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/lxj616/wooyun-firefox.git
 chmod -R 777 wooyun-firefox
-cd /root
-
-#pyobfuscate
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-git clone https://github.com/astrand/pyobfuscate
-cd pyobfuscate
-python setup.py install
 cd /root
 
 #Configure the system
