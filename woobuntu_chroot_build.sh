@@ -182,7 +182,7 @@ fi
 if [ $install_gnome_desktop -eq 1 ]
 then
     #Chinese language support
-    apt-get install fcitx fcitx-bin fcitx-config-common fcitx-config-gtk fcitx-data fcitx-frontend-all fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt4 fcitx-frontend-qt5 fcitx-module-cloudpinyin fcitx-module-dbus fcitx-module-kimpanel fcitx-module-lua fcitx-modules fcitx-module-x11 fcitx-pinyin fcitx-sunpinyin fcitx-table fcitx-table-wubi fcitx-ui-classic fcitx-ui-qimpanel firefox-locale-en firefox-locale-zh-hans fonts-arphic-ukai fonts-arphic-uming hyphen-en-us libdouble-conversion1v5 libfcitx-config4 libfcitx-core0 libfcitx-gclient0 libfcitx-qt0 libfcitx-qt5-1 libfcitx-utils0 libpresage1 libpresage-data libqt5qml5 libqt5quick5 libqt5quickwidgets5 libreoffice-help-zh-cn libreoffice-l10n-zh-cn libsunpinyin3 libtinyxml2.6.2v5 myspell-en-au myspell-en-gb myspell-en-za mythes-en-us openoffice.org-hyphenation presage sunpinyin-data wbritish -y --force-yes
+    apt-get install fcitx fcitx-bin fcitx-config-common fcitx-config-gtk fcitx-data fcitx-frontend-all fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-frontend-qt4 fcitx-frontend-qt5 fcitx-module-cloudpinyin fcitx-module-dbus fcitx-module-kimpanel fcitx-module-lua fcitx-modules fcitx-module-x11 fcitx-pinyin fcitx-sunpinyin fcitx-table fcitx-table-wubi fcitx-ui-classic fcitx-ui-qimpanel firefox-locale-en firefox-locale-zh-hans fonts-arphic-ukai fonts-arphic-uming hyphen-en-us libfcitx-config4 libfcitx-core0 libfcitx-gclient0 libfcitx-qt0 libfcitx-qt5-1 libfcitx-utils0 libmng2 libmysqlclient18 libpresage1v5 libpresage-data libqt4-dbus libqt4-declarative libqt4-network libqt4-script libqt4-sql libqt4-sql-mysql libqt4-xml libqt4-xmlpatterns libqt5quickwidgets5 libqtcore4 libqtdbus4 libqtgui4 libreoffice-help-zh-cn libreoffice-l10n-zh-cn libsunpinyin3v5 libtinyxml2.6.2v5 myspell-en-au myspell-en-gb myspell-en-za mysql-common mythes-en-us openoffice.org-hyphenation presage qdbus qt-at-spi qtchooser qtcore4-l10n sunpinyin-data wbritish -y --force-yes
     #Set terminal command in every .desktop entry
     terminalcmd="gnome-terminal"
 
@@ -694,6 +694,9 @@ apt-get install httrack -y
 
 #dsniff - dnsspoof
 apt-get install dsniff -y
+
+#tcpreplay
+apt-get install tcpreplay -y
 
 #sslsplit
 apt-get install sslsplit -y
