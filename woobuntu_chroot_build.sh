@@ -996,7 +996,7 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/rapid7/metasploit-framework
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.7
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.8
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
