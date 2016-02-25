@@ -1000,10 +1000,10 @@ curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.8
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.1.7
-rvm use 2.1.7 --default
+rvm install 2.1.8
+rvm use 2.1.8 --default
 cd /opt/woobuntu/metasploit-framework
-rvm --default use ruby-2.1.7@metasploit-framework
+rvm --default use ruby-2.1.8@metasploit-framework
 gem install bundler
 bundle install
 cd /root
