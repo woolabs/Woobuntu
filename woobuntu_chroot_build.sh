@@ -1075,7 +1075,7 @@ EOF
 
 #BDFactory
 
-apt-get install python-pip -y
+apt-get install python-pip python-setuptools -y
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/secretsquirrel/the-backdoor-factory
