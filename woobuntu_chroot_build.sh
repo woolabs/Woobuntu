@@ -76,41 +76,41 @@ cd /root
 cat > /etc/apt/sources.list <<EOF
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted
+deb http://archive.ubuntu.com/ubuntu/ xenial main restricted
+deb-src http://archive.ubuntu.com/ubuntu/ xenial main restricted
 
 ## Major bug fix updates produced after the final release of the
 ## distribution.
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+deb http://archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+deb-src http://archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
 ## your rights to use the software. Also, please note that software in
 ## universe WILL NOT receive any review or updates from the Ubuntu security
 ## team.
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial universe
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial universe
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
+deb http://archive.ubuntu.com/ubuntu/ xenial universe
+deb-src http://archive.ubuntu.com/ubuntu/ xenial universe
+deb http://archive.ubuntu.com/ubuntu/ xenial-updates universe
+deb-src http://archive.ubuntu.com/ubuntu/ xenial-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu 
 ## team, and may not be under a free licence. Please satisfy yourself as to 
 ## your rights to use the software. Also, please note that software in 
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+deb http://archive.ubuntu.com/ubuntu/ xenial multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ xenial multiverse
+deb http://archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
 ## newer versions of some applications which may provide useful features.
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
-deb http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
 
 ## Uncomment the following two lines to add software from Canonical's
 ## 'partner' repository.
@@ -334,20 +334,6 @@ apt-get install vim git -y
 
 #Vim color
 cat > /root/.vimrc <<EOF
-set nocompatible                " be iMproved
-filetype off                    " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-
-"my Bundle here:
-"
-" original repos on github
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
-
 syntax enable
 set background=dark
 colorscheme evening
@@ -963,7 +949,7 @@ cd /root
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
-#Terminal=true
+#Terminal=false
 #EOF
 #cat > /usr/share/applications/service_metasploit_stop.desktop <<EOF
 #[Desktop Entry]
@@ -975,7 +961,7 @@ cd /root
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
-#Terminal=true
+#Terminal=false
 #EOF
 #cat > /usr/share/applications/metasploit.desktop <<EOF
 #[Desktop Entry]
@@ -987,7 +973,7 @@ cd /root
 #NoDisplay=false
 #Categories=woobuntu;
 #StartupNotify=true
-#Terminal=true
+#Terminal=false
 #EOF
 
 #Metasploit-framework
@@ -1029,7 +1015,7 @@ Exec=$terminalcmd -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobunt
 NoDisplay=false
 Categories=woobuntu_exploitation;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 #armitage
 #mkdir -p /opt/woobuntu
@@ -1070,7 +1056,7 @@ Exec=$terminalcmd -e '/bin/bash -c "gksudo /opt/woobuntu/arachni/bin/arachni_web
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 
 #BDFactory
@@ -1113,7 +1099,7 @@ Exec=$terminalcmd -e '/bin/bash -c "/opt/woobuntu/spiderfoot/sf.py; exec bash"'
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 
 
@@ -1144,7 +1130,7 @@ Exec=$terminalcmd -e '/bin/bash -c "source /etc/profile.d/rvm.sh;cd /opt/woobunt
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 chmod -R a+w /opt/woobuntu/beef
 
@@ -1512,7 +1498,7 @@ Exec=androgui.py
 NoDisplay=false
 Categories=woobuntu_android;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 
 #drozer
@@ -1732,7 +1718,7 @@ Exec=gnome-terminal -e '/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;./woob
 NoDisplay=false
 Categories=woobuntu;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 
 fi
@@ -1750,7 +1736,7 @@ Exec=gnome-terminal -e '/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;./woob
 NoDisplay=false
 Categories=woobuntu;
 StartupNotify=true
-Terminal=true
+Terminal=false
 EOF
 
 fi
