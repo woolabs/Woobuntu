@@ -1607,7 +1607,7 @@ EOF
 #mana-toolkit
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
-apt-get install libnl-3-dev tinyproxy libssl-dev python-dnspython python-pcapy dsniff stunnel4 -y
+apt-get install libnl-3-dev libssl-dev python-dnspython python-pcapy dsniff stunnel4 -y
 git clone --depth 1 https://github.com/sensepost/mana
 cd mana
 git submodule init
