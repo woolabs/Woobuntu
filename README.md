@@ -74,7 +74,7 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
 
 ## 软件中心 ##
 
-您可以在安装完Woobuntu之后使用软件中心安装可选的软件包，其中包括了wine QQ，WPS，搜狗输入法等，Woobuntu默认不再集成这些软件
+您可以在安装完Woobuntu之后使用软件中心安装可选的软件包，其中包括了各种靶场，wine QQ，WPS，搜狗输入法等，Woobuntu不再默认集成这些软件
 
 软件中心作为独立模块，位于
 
@@ -84,7 +84,7 @@ https://github.com/lxj616/woobuntu-installer
 
 目前wooyun定制的firefox个人profile也独立成了一个模块
 
-位于
+版本为firefox 44.0.2+build1-0ubuntu1
 
 https://github.com/lxj616/wooyun-firefox
 

@@ -657,8 +657,17 @@ apt-get install steghide -y
 #chntpw
 apt-get install chntpw -y
 
+#guymager
+apt-get install guymager -y
+
 #foremost
 apt-get install foremost -y
+
+#extundelete
+apt-get install extundelete -y
+
+#exifprobe
+apt-get install exifprobe -y
 
 #zenmap
 apt-get install zenmap -y
