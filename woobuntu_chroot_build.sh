@@ -1068,6 +1068,29 @@ StartupNotify=true
 Terminal=false
 EOF
 
+
+
+#AntSword
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+wget https://github.com/antoor/antSword/releases/download/1.0.0/AntSword-v1.0.0-linux-x64.tar.gz
+tar -zxvf AntSword-v1.0.0-linux-x64.tar.gz
+rm AntSword-v1.0.0-linux-x64.tar.gz
+mv AntSword* AntSword
+cd /root
+cat > /usr/share/applications/antsword.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=antsword
+Icon=application-default-icon
+Exec=/opt/woobuntu/AntSword/AntSword
+NoDisplay=false
+Categories=woobuntu_web;
+StartupNotify=false
+Terminal=false
+EOF
+
 #BDFactory
 
 apt-get install python-pip python-setuptools -y
@@ -1704,10 +1727,10 @@ Version=1.0
 Type=Application
 Name=Woobuntu安装向导
 Comment=
-Exec=/bin/bash -c "cd /opt/woobuntu_installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
+Exec=/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
 Icon=applications-internet-symbolic
 Path=/opt/woobuntu/woobuntu-installer
-Terminal=false
+Terminal=true
 StartupNotify=false
 EOF
   chmod a+x /etc/skel/Woobuntu安装向导.desktop
@@ -1723,11 +1746,12 @@ Version=1.0
 Type=Application
 Name=woobuntu软件中心
 Icon=application-default-icon
-Exec=/bin/bash -c "cd /opt/woobuntu_installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
+Exec=/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
 NoDisplay=false
 Categories=woobuntu;
-StartupNotify=true
-Terminal=false
+Path=/opt/woobuntu/woobuntu-installer
+StartupNotify=false
+Terminal=true
 EOF
 
 fi
@@ -1741,11 +1765,12 @@ Version=1.0
 Type=Application
 Name=woobuntu软件中心
 Icon=application-default-icon
-Exec=/bin/bash -c "cd /opt/woobuntu_installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
+Exec=/bin/bash -c "cd /opt/woobuntu/woobuntu-installer;/opt/woobuntu/woobuntu-installer/woobuntu_installer"
 NoDisplay=false
 Categories=woobuntu;
-StartupNotify=true
-Terminal=false
+Path=/opt/woobuntu/woobuntu-installer
+StartupNotify=false
+Terminal=true
 EOF
 
 fi
