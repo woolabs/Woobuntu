@@ -1049,9 +1049,9 @@ EOF
 #Arachni
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/Arachni/arachni/releases/download/v1.3.2/arachni-1.3.2-0.5.9-linux-x86_64.tar.gz
-tar -zxvf arachni-1.3.2-0.5.9-linux-x86_64.tar.gz
-rm arachni-1.3.2-0.5.9-linux-x86_64.tar.gz
+wget https://github.com/Arachni/arachni/releases/download/v1.4/arachni-1.4-0.5.10-linux-x86_64.tar.gz
+tar -zxvf arachni-1.4-0.5.10-linux-x86_64.tar.gz
+rm arachni-1.4-0.5.10-linux-x86_64.tar.gz
 mv arachni* arachni
 sed -r 's/(.*)"/\1:\/opt\/woobuntu\/arachni\/bin"/' /etc/environment -i
 cd /root
