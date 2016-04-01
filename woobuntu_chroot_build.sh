@@ -130,7 +130,10 @@ deb-src http://security.ubuntu.com/ubuntu xenial-security multiverse
 EOF
 #Update before fetching packages
 apt-get update -y
-#apt-get update
+
+#Fix _apt user privilege errors
+mkdir -p /var/lib/update-notifier/package-data-downloads/partial/
+chmod a+w /var/lib/update-notifier/package-data-downloads/partial/
 
 terminalcmd="xfce4-terminal"
 
@@ -201,10 +204,10 @@ fi
 apt-get install vnc4server -y
 
 #Ubuntu kylin software center
-wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.3/+download/ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
-dpkg -i ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
+wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.9/+download/ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
+dpkg -i ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
 apt-get -f install -y
-rm ubuntu-kylin-software-center_1.3.3-0~265~ubuntu15.10.1_all.deb
+rm ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
 
 #sougou-pinyin
 #wget http://cdn2.ime.sogou.com/dl/index/1446541585/sogoupinyin_2.0.0.0068_amd64.deb
@@ -643,7 +646,7 @@ apt-get install git-core build-essential libssl-dev libncurses5-dev unzip -y
 apt-get install subversion mercurial -y
 apt-get install build-essential subversion libncurses5-dev gawk gcc-multilib flex git-core gettext libssl-dev -y
 
-apt-get install bison g++-multilib git gperf libxml2-utils make python-networkx zip bison build-essential curl flex git gnupg gperf libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk2.8-dev libxml2 libxml2-utils lzop openjdk-7-jdk openjdk-7-jre pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev g++-multilib gcc-multilib lib32ncurses5-dev lib32readline6-dev -y
+apt-get install bison g++-multilib git gperf libxml2-utils make python-networkx zip bison build-essential curl flex git gnupg gperf libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libxml2 libxml2-utils lzop openjdk-8-jdk openjdk-8-jre pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev g++-multilib gcc-multilib lib32ncurses5-dev lib32readline6-dev -y
 
 #adb
 apt-get install android-tools-adb android-tools-fastboot -y
@@ -849,8 +852,8 @@ cd /root
 #android-tools
 mkdir -p /opt/woobuntu/android-tools
 cd /opt/woobuntu/android-tools
-wget https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.1.0.jar
-wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.0.2.jar
+wget https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.1.1.jar
+wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.1.0.jar
 cd /root
 
 #Wifite
@@ -1073,9 +1076,9 @@ EOF
 #AntSword
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/antoor/antSword/releases/download/1.0.0/AntSword-v1.0.0-linux-x64.tar.gz
-tar -zxvf AntSword-v1.0.0-linux-x64.tar.gz
-rm AntSword-v1.0.0-linux-x64.tar.gz
+wget https://github.com/antoor/antSword/releases/download/1.1.1/AntSword-v1.1.1-linux-x64.zip
+tar -zxvf AntSword-v1.1.1-linux-x64.tar.gz
+rm AntSword-v1.1.1-linux-x64.tar.gz
 mv AntSword* AntSword
 cd /root
 cat > /usr/share/applications/antsword.desktop <<EOF
