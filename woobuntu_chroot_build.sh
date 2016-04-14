@@ -131,6 +131,15 @@ EOF
 #Update before fetching packages
 apt-get update -y
 
+#Unattended install (deb selections)
+apt-get install debconf-utils -y
+
+echo wireshark-common	wireshark-common/install-setuid	boolean	true | debconf-set-selections
+
+echo ttf-mscorefonts-installer	msttcorefonts/accepted-mscorefonts-eula	boolean	true | debconf-set-selections
+
+echo ttf-mscorefonts-installer	msttcorefonts/present-mscorefonts-eula	note | debconf-set-selections
+
 #Fix _apt user privilege errors
 mkdir -p /var/lib/update-notifier/package-data-downloads/partial/
 chmod a+w /var/lib/update-notifier/package-data-downloads/partial/
@@ -142,6 +151,25 @@ then
 
     #Chinese language support
     apt-get install firefox-locale-zh-hans libreoffice-help-en-us fcitx-sunpinyin thunderbird-locale-en fcitx fcitx-ui-classic wbritish myspell-en-za myspell-en-gb hunspell-en-ca fcitx-frontend-gtk2 fcitx-module-cloudpinyin fonts-arphic-ukai fcitx-pinyin thunderbird-locale-en-us mythes-en-au fcitx-table-wubi thunderbird-locale-zh-hans myspell-en-au thunderbird-locale-zh-cn libreoffice-l10n-en-gb fcitx-frontend-qt4 libreoffice-l10n-zh-cn libreoffice-help-en-gb libreoffice-help-zh-cn libreoffice-l10n-en-za openoffice.org-hyphenation mythes-en-us fcitx-frontend-qt5 thunderbird-locale-en-gb hyphen-en-us fcitx-frontend-gtk3 fonts-arphic-uming fonts-noto-cjk fcitx-ui-qimpanel -y
+
+    #vnc
+    mkdir -p /etc/skel/.vnc
+    cat > /etc/skel/.config/xfce4/terminal/terminalrc <<EOF
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+unset SESSION_MANAGER
+exec /etc/X11/xinit/xinitrc
+
+startxfce4 &
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r \$HOME/.Xresources ] && xrdb \$HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+x-terminal-emulator -geometry 80x24+10+10 -ls -title "\$VNCDESKTOP Desktop" &
+x-window-manager &
+EOF
 
     #Terminalrc
     mkdir -p /etc/skel/.config/xfce4/terminal
@@ -646,7 +674,7 @@ apt-get install git-core build-essential libssl-dev libncurses5-dev unzip -y
 apt-get install subversion mercurial -y
 apt-get install build-essential subversion libncurses5-dev gawk gcc-multilib flex git-core gettext libssl-dev -y
 
-apt-get install bison g++-multilib git gperf libxml2-utils make python-networkx zip bison build-essential curl flex git gnupg gperf libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libxml2 libxml2-utils lzop openjdk-8-jdk openjdk-8-jre pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev g++-multilib gcc-multilib lib32ncurses5-dev lib32readline6-dev -y
+apt-get install bison g++-multilib git gperf libxml2-utils make python-networkx zip bison build-essential curl flex git gnupg gperf libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libxml2 libxml2-utils lzop libwxgtk3.0-dev openjdk-8-jdk openjdk-8-jre pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev g++-multilib gcc-multilib lib32ncurses5-dev lib32readline6-dev -y
 
 #adb
 apt-get install android-tools-adb android-tools-fastboot -y
@@ -923,6 +951,14 @@ cd /usr/bin
 ln -s /opt/woobuntu/sqlmap/sqlmap.py sqlmap
 cd /root
 
+#commix
+mkdir -p /opt/woobuntu
+cd /opt/woobuntu
+git clone https://github.com/stasinopoulos/commix.git
+cd commix
+python commix.py --install
+cd /root
+
 #docker.io
 #wget -qO- https://get.docker.com/ | sh
 
@@ -994,14 +1030,14 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/rapid7/metasploit-framework
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.8
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.9
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.1.8
-rvm use 2.1.8 --default
+rvm install 2.1.9
+rvm use 2.1.9 --default
 cd /opt/woobuntu/metasploit-framework
-rvm --default use ruby-2.1.8@metasploit-framework
+rvm --default use ruby-2.1.9@metasploit-framework
 gem install bundler
 bundle install
 cd /root
@@ -1077,8 +1113,8 @@ EOF
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 wget https://github.com/antoor/antSword/releases/download/1.1.1/AntSword-v1.1.1-linux-x64.zip
-tar -zxvf AntSword-v1.1.1-linux-x64.tar.gz
-rm AntSword-v1.1.1-linux-x64.tar.gz
+unzip AntSword-v1.1.1-linux-x64.zip
+rm AntSword-v1.1.1-linux-x64.zip
 mv AntSword* AntSword
 cd /root
 cat > /usr/share/applications/antsword.desktop <<EOF
@@ -1801,8 +1837,8 @@ fi
 #End of chroot env , cleanup and repack
 
 apt-get clean
-apt-get -d install apache2 php5 mysql-server php5-mysql isc-dhcp-server -y
-apt-get -d install gcc-4.7 g++-4.7 dnsmasq hostapd libssl-dev wireless-tools iw nginx php5-fpm gettext make intltool build-essential automake autoconf uuid uuid-dev php5-curl php5-cli dos2unix curl sudo unzip lsb-release -y
+apt-get -d install apache2 php mysql-server php-mysql isc-dhcp-server -y
+#apt-get -d install gcc-4.7 g++-4.7 dnsmasq hostapd libssl-dev wireless-tools iw nginx php5-fpm gettext make intltool build-essential automake autoconf uuid uuid-dev php5-curl php5-cli dos2unix curl sudo unzip lsb-release -y
 rm -rf /tmp/*
 echo "" > /etc/hosts
 cat > /etc/resolv.conf <<EOF
