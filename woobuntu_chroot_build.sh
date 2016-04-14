@@ -1030,14 +1030,14 @@ mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/rapid7/metasploit-framework
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.8
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.9
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.1.8
-rvm use 2.1.8 --default
+rvm install 2.1.9
+rvm use 2.1.9 --default
 cd /opt/woobuntu/metasploit-framework
-rvm --default use ruby-2.1.8@metasploit-framework
+rvm --default use ruby-2.1.9@metasploit-framework
 gem install bundler
 bundle install
 cd /root
@@ -1113,8 +1113,8 @@ EOF
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 wget https://github.com/antoor/antSword/releases/download/1.1.1/AntSword-v1.1.1-linux-x64.zip
-tar -zxvf AntSword-v1.1.1-linux-x64.tar.gz
-rm AntSword-v1.1.1-linux-x64.tar.gz
+unzip AntSword-v1.1.1-linux-x64.zip
+rm AntSword-v1.1.1-linux-x64.zip
 mv AntSword* AntSword
 cd /root
 cat > /usr/share/applications/antsword.desktop <<EOF
