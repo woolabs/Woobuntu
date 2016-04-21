@@ -232,10 +232,10 @@ fi
 apt-get install vnc4server -y
 
 #Ubuntu kylin software center
-wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.9/+download/ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
-dpkg -i ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
+wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.10/+download/ubuntu-kylin-software-center_1.3.10-0~329~ubuntu16.04.1_all.deb
+dpkg -i ubuntu-kylin-software-center_1.3.10-0~329~ubuntu16.04.1_all.deb
 apt-get -f install -y
-rm ubuntu-kylin-software-center_1.3.9-0~314~ubuntu16.04.1_all.deb
+rm ubuntu-kylin-software-center_1.3.10-0~329~ubuntu16.04.1_all.deb
 
 #sougou-pinyin
 #wget http://cdn2.ime.sogou.com/dl/index/1446541585/sogoupinyin_2.0.0.0068_amd64.deb
@@ -1112,9 +1112,9 @@ EOF
 #AntSword
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/antoor/antSword/releases/download/1.1.1/AntSword-v1.1.1-linux-x64.zip
-unzip AntSword-v1.1.1-linux-x64.zip
-rm AntSword-v1.1.1-linux-x64.zip
+wget https://github.com/antoor/antSword/releases/download/1.2.0/AntSword-v1.2.0-linux-x64.zip
+unzip AntSword-v1.2.0-linux-x64.zip
+rm AntSword-v1.2.0-linux-x64.zip
 mv AntSword* AntSword
 cd /root
 cat > /usr/share/applications/antsword.desktop <<EOF
@@ -1253,12 +1253,13 @@ pip install -r requirements.txt
 cd /root
 
 #mitmproxy
-mkdir /opt/woobuntu
-cd /opt/woobuntu
-git clone https://github.com/mitmproxy/mitmproxy.git
-cd mitmproxy
-pip install -r requirements.txt
-cd /root
+pip install mitmproxy
+#mkdir /opt/woobuntu
+#cd /opt/woobuntu
+#git clone https://github.com/mitmproxy/mitmproxy.git
+#cd mitmproxy
+#pip install -r requirements.txt
+#cd /root
 
 #dnsmasq
 #apt-get install dnsmasq -y
