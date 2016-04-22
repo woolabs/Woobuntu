@@ -154,7 +154,7 @@ then
 
     #vnc
     mkdir -p /etc/skel/.vnc
-    cat > /etc/skel/.config/xfce4/terminal/terminalrc <<EOF
+    cat > /etc/skel/.vnc/xstartup <<EOF
 #!/bin/sh
 
 # Uncomment the following two lines for normal desktop:
@@ -170,6 +170,8 @@ vncconfig -iconic &
 x-terminal-emulator -geometry 80x24+10+10 -ls -title "\$VNCDESKTOP Desktop" &
 x-window-manager &
 EOF
+    chmod 777 /etc/skel/.vnc/xstartup
+    cp -r /etc/skel/.vnc /root
 
     #Terminalrc
     mkdir -p /etc/skel/.config/xfce4/terminal
