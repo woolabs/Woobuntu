@@ -376,7 +376,6 @@ Bundle 'gmarik/vundle'
 "my Bundle here:
 "
 " original repos on github
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 syntax enable
 set background=dark
