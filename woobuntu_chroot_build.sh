@@ -1238,7 +1238,7 @@ cat > /usr/bin/wpscan <<EOF
 #!/bin/bash
 source /etc/profile.d/rvm.sh
 cd /opt/woobuntu/wpscan
-./wpscan \$@
+./wpscan.rb \$@
 EOF
 chmod a+x /usr/bin/wpscan
 
