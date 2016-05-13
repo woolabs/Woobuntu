@@ -367,35 +367,30 @@ apt-get install vim git -y
 
 #Vim color
 cat > /root/.vimrc <<EOF
-set nocompatible                " be iMproved
-filetype off                    " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-"my Bundle here:
-"
-" original repos on github
-Bundle 'scrooloose/syntastic'
 syntax enable
 set background=dark
 colorscheme evening
 EOF
 
 #vim plugin
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-vim +PluginInstall +qall
-apt-get install build-essential python-dev cmake -y
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
+#git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+#vim +PluginInstall +qall
+#apt-get install build-essential python-dev cmake -y
+#cd ~/.vim/bundle/YouCompleteMe
+#./install.py --clang-completer
+#cp -r ~/.vim /etc/skel
+#chmod -R 777 /etc/skel/.vim
+#cp /root/.vimrc /etc/skel/
+#chmod 666 /etc/skel/.vimrc
+#cd /root
+apt-get install vim-youcompleteme vim-syntastic -y
+apt-get install vim-addon-manager -y
+vam install youcompleteme
+vam install syntastic
 cp -r ~/.vim /etc/skel
 chmod -R 777 /etc/skel/.vim
 cp /root/.vimrc /etc/skel/
 chmod 666 /etc/skel/.vimrc
-cd /root
-apt-get install vim-youcompleteme -y
-#vam install youcompleteme
-#vam install syntastic
 
 #xdotool
 apt-get install libxtst-dev -y
@@ -1760,6 +1755,11 @@ echo "En Taro Tassadar!\n"
 EOF
 
 chmod +x /opt/woobuntu/EnTaroTassadar.sh
+
+#thefuck
+pip install thefuck
+echo "eval \$(thefuck --alias)" >> /root/.bashrc
+echo "eval \$(thefuck --alias)" >> /etc/skel/.bashrc
 
 #woobuntu_installer
 mkdir -p /opt/woobuntu
