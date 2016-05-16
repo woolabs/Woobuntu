@@ -834,7 +834,8 @@ make
 cd ../../hostapd-wpe/certs
 ./bootstrap
 cd /opt/woobuntu/config
-wget https://raw.githubusercontent.com/sensepost/mana/master/run-mana/conf/hostapd-karma.conf
+#deprecated
+#wget https://raw.githubusercontent.com/sensepost/mana/master/run-mana/conf/hostapd-karma.conf
 cd /root
 cat > /opt/woobuntu/wifi_hijack.sh <<EOF
 #!/bin/bash
@@ -1036,15 +1037,16 @@ apt-get install git ruby ruby-dev nmap git-core curl zlib1g-dev build-essential 
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/rapid7/metasploit-framework
+ruby_verison=`cat /opt/woobuntu/metasploit-framework/.ruby-version`
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.1.9
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=$ruby_verison
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.1.9
-rvm use 2.1.9 --default
+rvm install $ruby_verison
+rvm use $ruby_verison --default
 cd /opt/woobuntu/metasploit-framework
-rvm --default use ruby-2.1.9@metasploit-framework
+rvm --default use ruby-$ruby_verison@metasploit-framework
 gem install bundler
 bundle install
 cd /root
@@ -1186,15 +1188,16 @@ apt-get install ruby sqlite3 ruby-sqlite3 -y
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
 git clone https://github.com/beefproject/beef
+ruby_verison=`cat /opt/woobuntu/beef/.ruby-version`
 sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=2.2.4
+curl -L https://get.rvm.io | bash -s stable --autolibs=enabled --ruby=$ruby_verison
 source /usr/local/rvm/scripts/rvm
 echo "source /etc/profile.d/rvm.sh" >> /root/.bashrc
 echo "source /etc/profile.d/rvm.sh" >> /etc/skel/.bashrc
-rvm install 2.2.4
-rvm use 2.2.4 --default
+rvm install $ruby_verison
+rvm use $ruby_verison --default
 cd /opt/woobuntu/beef
-rvm --default use ruby-2.2.4@beef
+rvm --default use ruby-$ruby_verison@beef
 gem install bundler
 bundle install
 cd /root
