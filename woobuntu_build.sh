@@ -25,7 +25,7 @@ echo "-V        Pre-install Virtualbox-guest additions (Use with causion)"
 echo ""
 echo "Example:"
 echo ""
-echo "./woobuntu_build.sh -f xubuntu-15.10-desktop-amd64.iso -o woobuntu-current-amd64.iso -x"
+echo "./woobuntu_build.sh -f xubuntu-16.04-desktop-amd64.iso -o woobuntu-current-amd64.iso -x"
 
 }
 
