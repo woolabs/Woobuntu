@@ -1101,6 +1101,12 @@ wget https://github.com/Arachni/arachni/releases/download/v1.4/arachni-1.4-0.5.1
 tar -zxvf arachni-1.4-0.5.10-linux-x86_64.tar.gz
 rm arachni-1.4-0.5.10-linux-x86_64.tar.gz
 mv arachni* arachni
+cat > /root/warmup.js <<EOF
+console.log("warmup");
+phantom.exit();
+EOF
+cd arachni
+./bin/arachni_shell -c 'phantomjs /root/warmup.js'
 sed -r 's/(.*)"/\1:\/opt\/woobuntu\/arachni\/bin"/' /etc/environment -i
 cd /root
 cat > /usr/share/applications/arachni.desktop <<EOF
