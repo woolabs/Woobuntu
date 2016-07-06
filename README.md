@@ -20,7 +20,7 @@
     ./woobuntu_build.sh -f xenial-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
 
 
-Woobuntu is a automated script based on Ubuntu (currently 16.04) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider chooseing Kali Linux in English instead .
+Woobuntu is a automated script based on Ubuntu (currently 16.04) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider choosing Kali Linux in English instead .
 
 Woobuntu 是一个基于Ubuntu（目前是16.04版本）的自动配置脚本，它可以自动化安装并配置中文语言环境的安全工具与依赖环境。
 
