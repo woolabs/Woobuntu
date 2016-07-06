@@ -306,9 +306,10 @@ apt-get install keepnote -y
 apt-get install keepassx -y
 
 #Lantern
-wget https://raw.githubusercontent.com/getlantern/lantern-binaries/master/lantern-installer-beta-64-bit.deb
-dpkg -i lantern-installer-beta-64-bit.deb
-rm lantern-installer-beta-64-bit.deb
+lantern_url=`curl -i https://raw.githubusercontent.com/getlantern/lantern/devel/README.md | grep -o "https://raw.githubusercontent.com/getlantern/lantern-binaries/master/lantern-installer-.*-64-bit.deb"`
+wget -O lantern.deb  $lantern_url
+dpkg -i lantern.deb
+rm lantern.deb
 
 #Shadowsocks proxychains
 apt-get install shadowsocks proxychains -y
@@ -888,8 +889,8 @@ cd /root
 #android-tools
 mkdir -p /opt/woobuntu/android-tools
 cd /opt/woobuntu/android-tools
-wget https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.1.1.jar
-wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.1.0.jar
+wget https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.1.2.jar
+wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.1.1.jar
 cd /root
 
 #Wifite
@@ -1131,6 +1132,12 @@ wget https://github.com/antoor/antSword/releases/download/1.2.0/AntSword-v1.2.0-
 unzip AntSword-v1.2.0-linux-x64.zip
 rm AntSword-v1.2.0-linux-x64.zip
 mv AntSword* AntSword
+cd /root
+wget https://github.com/antoor/antSword/releases/download/1.3.0/app.asar.zip
+unzip app.asar.zip
+rm app.asar.zip
+mv app.asar /opt/woobuntu/AntSword/resources/
+chmod a+r /opt/woobuntu/AntSword/resources/app.asar
 cd /root
 cat > /usr/share/applications/antsword.desktop <<EOF
 [Desktop Entry]
@@ -1675,9 +1682,9 @@ gem install bettercap
 #zed attack proxy
 mkdir /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/zaproxy/zaproxy/releases/download/2.4.3/ZAP_2.4.3_Linux.tar.gz
-tar -zxvf ZAP_2.4.3_Linux.tar.gz
-rm ZAP_2.4.3_Linux.tar.gz
+wget https://github.com/zaproxy/zaproxy/releases/download/2.5.0/ZAP_2.5.0_Linux.tar.gz
+tar -zxvf ZAP_2.5.0_Linux.tar.gz
+rm ZAP_2.5.0_Linux.tar.gz
 cd /root
 cat > /usr/share/applications/zap.desktop <<EOF
 [Desktop Entry]
@@ -1685,7 +1692,7 @@ Version=1.0
 Type=Application
 Name=ZAP
 Icon=application-default-icon
-Exec=/opt/woobuntu/ZAP_2.4.3/zap.sh
+Exec=/opt/woobuntu/ZAP_2.5.0/zap.sh
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
