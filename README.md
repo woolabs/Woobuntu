@@ -84,7 +84,7 @@ https://github.com/lxj616/woobuntu-installer
 
 目前wooyun定制的firefox个人profile也独立成了一个模块
 
-版本为firefox 45.0.2+build1-0ubuntu1
+版本为firefox 47.0+build3-0ubuntu0.16.04.1
 
 https://github.com/lxj616/wooyun-firefox
 

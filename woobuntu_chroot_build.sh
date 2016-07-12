@@ -1306,6 +1306,7 @@ apt-get install zlib1g-dev:i386 -y
 #cd /root
 
 #firefox
+apt-get install firefox -y
 mv .mozilla /etc/skel
 cd /etc/skel
 chmod -R 777 .mozilla
