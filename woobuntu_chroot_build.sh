@@ -233,6 +233,12 @@ fi
 #vnc
 apt-get install vnc4server -y
 
+#Openconnect and useful stuff
+apt-get install openvpn network-manager-openconnect-gnome -y
+
+#nodejs
+apt-get install npm -y
+
 #Ubuntu kylin software center
 wget https://launchpad.net/ubuntu-kylin-software-center/1.3/1.3.10/+download/ubuntu-kylin-software-center_1.3.10-0~329~ubuntu16.04.1_all.deb
 dpkg -i ubuntu-kylin-software-center_1.3.10-0~329~ubuntu16.04.1_all.deb
@@ -305,12 +311,6 @@ apt-get install keepnote -y
 #keepass
 apt-get install keepassx -y
 
-#Lantern
-lantern_url=`curl -i https://raw.githubusercontent.com/getlantern/lantern/devel/README.md | grep -o "https://raw.githubusercontent.com/getlantern/lantern-binaries/master/lantern-installer-.*-64-bit.deb"`
-wget -O lantern.deb  $lantern_url
-dpkg -i lantern.deb
-rm lantern.deb
-
 #Shadowsocks proxychains
 apt-get install shadowsocks proxychains -y
 
@@ -374,7 +374,7 @@ colorscheme evening
 EOF
 
 #vim plugin
-#git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 #vim +PluginInstall +qall
 #apt-get install build-essential python-dev cmake -y
 #cd ~/.vim/bundle/YouCompleteMe
@@ -384,9 +384,9 @@ EOF
 #cp /root/.vimrc /etc/skel/
 #chmod 666 /etc/skel/.vimrc
 #cd /root
-apt-get install vim-youcompleteme vim-syntastic -y
+apt-get install vim-syntastic -y
 apt-get install vim-addon-manager -y
-vam install youcompleteme
+#vam install youcompleteme
 vam install syntastic
 cp -r ~/.vim /etc/skel
 chmod -R 777 /etc/skel/.vim
@@ -751,34 +751,34 @@ apt-get install medusa -y
 apt-get install radare2 -y
 
 #edb-debugger
-sudo apt-get install build-essential libboost-dev libqt5xmlpatterns5-dev qtbase5-dev qt5-default -y
-mkdir -p /opt/woobuntu
-cd /opt/woobuntu
-git clone --recursive https://github.com/eteran/edb-debugger.git
-cd edb-debugger
-git clone --depth=50 --branch=3.0.4 https://github.com/aquynh/capstone.git
-pushd capstone
-./make.sh
-sudo ./make.sh install
-popd
-qmake
-make
-make install
-cd ..
-rm -rf edb-debugger
-cd /root
-cat > /usr/share/applications/edb-debugger.desktop <<EOF
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=edb-debugger
-Icon=application-default-icon
-Exec=edb
-NoDisplay=false
-Categories=woobuntu_reverse;
-StartupNotify=true
-Terminal=false
-EOF
+#sudo apt-get install build-essential libboost-dev libqt5xmlpatterns5-dev qtbase5-dev qt5-default -y
+#mkdir -p /opt/woobuntu
+#cd /opt/woobuntu
+#git clone --recursive https://github.com/eteran/edb-debugger.git
+#cd edb-debugger
+#git clone --depth=50 --branch=3.0.4 https://github.com/aquynh/capstone.git
+#pushd capstone
+#./make.sh
+#sudo ./make.sh install
+#popd
+#qmake
+#make
+#make install
+#cd ..
+#rm -rf edb-debugger
+#cd /root
+#cat > /usr/share/applications/edb-debugger.desktop <<EOF
+#[Desktop Entry]
+#Version=1.0
+#Type=Application
+#Name=edb-debugger
+#Icon=application-default-icon
+#Exec=edb
+#NoDisplay=false
+#Categories=woobuntu_reverse;
+#StartupNotify=true
+#Terminal=false
+#EOF
 
 #Wireshark
 apt-get install wireshark -y
@@ -889,8 +889,10 @@ cd /root
 #android-tools
 mkdir -p /opt/woobuntu/android-tools
 cd /opt/woobuntu/android-tools
-wget https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.1.2.jar
-wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.1.1.jar
+wget https://bitbucket.org/JesusFreke/smali/downloads/smali-2.2.0.jar
+wget https://github.com/iBotPeaches/Apktool/releases/download/v2.2.2/apktool_2.2.2.jar
+wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip
+unzip dex-tools-2.0.zip
 cd /root
 
 #Wifite
@@ -1098,9 +1100,9 @@ EOF
 #Arachni
 mkdir -p /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/Arachni/arachni/releases/download/v1.4/arachni-1.4-0.5.10-linux-x86_64.tar.gz
-tar -zxvf arachni-1.4-0.5.10-linux-x86_64.tar.gz
-rm arachni-1.4-0.5.10-linux-x86_64.tar.gz
+wget https://github.com/Arachni/arachni/releases/download/v1.5.1/arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
+tar -zxvf arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
+rm arachni-1.5.1-0.5.12-linux-x86_64.tar.gz
 mv arachni* arachni
 cat > /root/warmup.js <<EOF
 console.log("warmup");
@@ -1276,7 +1278,8 @@ pip install -r requirements.txt
 cd /root
 
 #mitmproxy
-pip install mitmproxy
+#apt install python3-pip
+apt install mitmproxy -y
 #mkdir /opt/woobuntu
 #cd /opt/woobuntu
 #git clone https://github.com/mitmproxy/mitmproxy.git
@@ -1777,6 +1780,13 @@ chmod +x /opt/woobuntu/EnTaroTassadar.sh
 pip install thefuck
 echo "eval \$(thefuck --alias)" >> /root/.bashrc
 echo "eval \$(thefuck --alias)" >> /etc/skel/.bashrc
+
+#electronic-wechat
+cd /opt/woobuntu
+wget https://github.com/geeeeeeeeek/electronic-wechat/releases/download/V2.0/linux-x64.tar.gz
+tar -zxvf linux-x64.tar.gz
+rm linux-x64.tar.gz
+cd /root
 
 #woobuntu_installer
 mkdir -p /opt/woobuntu
