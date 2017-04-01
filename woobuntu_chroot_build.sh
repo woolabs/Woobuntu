@@ -1686,9 +1686,9 @@ gem install bettercap
 #zed attack proxy
 mkdir /opt/woobuntu
 cd /opt/woobuntu
-wget https://github.com/zaproxy/zaproxy/releases/download/2.5.0/ZAP_2.5.0_Linux.tar.gz
-tar -zxvf ZAP_2.5.0_Linux.tar.gz
-rm ZAP_2.5.0_Linux.tar.gz
+wget https://github.com/zaproxy/zaproxy/releases/download/2.6.0/ZAP_2.6.0_Linux.tar.gz
+tar -zxvf ZAP_2.6.0_Linux.tar.gz
+rm ZAP_2.6.0_Linux.tar.gz
 cd /root
 cat > /usr/share/applications/zap.desktop <<EOF
 [Desktop Entry]
@@ -1696,7 +1696,7 @@ Version=1.0
 Type=Application
 Name=ZAP
 Icon=application-default-icon
-Exec=/opt/woobuntu/ZAP_2.5.0/zap.sh
+Exec=/opt/woobuntu/ZAP_2.6.0/zap.sh
 NoDisplay=false
 Categories=woobuntu_web;
 StartupNotify=true
