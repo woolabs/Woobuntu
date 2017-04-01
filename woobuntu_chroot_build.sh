@@ -371,14 +371,29 @@ cat > /root/.vimrc <<EOF
 syntax enable
 set background=dark
 colorscheme evening
+
+set nocompatible              " be iMproved, required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Bundle 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin on    " required
 EOF
 
 #vim plugin
-#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-#vim +PluginInstall +qall
-#apt-get install build-essential python-dev cmake -y
-#cd ~/.vim/bundle/YouCompleteMe
-#./install.py --clang-completer
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+apt-get install build-essential python-dev cmake -y
+cd ~/.vim/bundle/YouCompleteMe
+./install.py
 #cp -r ~/.vim /etc/skel
 #chmod -R 777 /etc/skel/.vim
 #cp /root/.vimrc /etc/skel/
@@ -392,6 +407,7 @@ cp -r ~/.vim /etc/skel
 chmod -R 777 /etc/skel/.vim
 cp /root/.vimrc /etc/skel/
 chmod 666 /etc/skel/.vimrc
+cd /root
 
 #xdotool
 apt-get install libxtst-dev -y
