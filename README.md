@@ -20,15 +20,15 @@
     ./woobuntu_build.sh -f xenial-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
 
 
-Woobuntu is a automated script based on Ubuntu (currently 16.04) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider choosing Kali Linux in English instead .
+Woobuntu is a automated script based on Ubuntu (currently 16.04.2) , to create Chinese language infosec research environment with tools & language-stuff . If you're NOT a Chinese , you may consider choosing Kali Linux in English instead .
 
-Woobuntu 是一个基于Ubuntu（目前是16.04版本）的自动配置脚本，它可以自动化安装并配置中文语言环境的安全工具与依赖环境。
+Woobuntu 是一个基于Ubuntu（目前是16.04.2版本）的自动配置脚本，它可以自动化安装并配置中文语言环境的安全工具与依赖环境。
 
 Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubuntu上安装
 
-## 定制安装镜像（推荐）##
+## 定制安装镜像（推荐） ##
 
-首先你需要下载一个Ubuntu安装镜像，推荐xubuntu-16.04-desktop-amd64.iso，但是理论上其他桌面版本的Ubuntu均支持
+首先你需要下载一个Ubuntu安装镜像，推荐xubuntu-16.04.2-desktop-amd64.iso，但是理论上其他桌面版本的Ubuntu均支持
 
     vim woobuntu_chroot_build.sh
 
@@ -40,11 +40,11 @@ Woobuntu 支持两种配置方式，分别为 定制安装镜像 与 直接Ubunt
 
 以xubuntu为例:
 
-    ./woobuntu_build.sh -f xubuntu-16.04-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
+    ./woobuntu_build.sh -f xubuntu-16.04.2-desktop-amd64.iso -o woobuntu-current-amd64.iso -x
 
 以gnome-ubuntu为例:
 
-    ./woobuntu_build.sh -f ubuntu-gnome-16.04-desktop-amd64.iso -o woobuntu-current-amd64.iso -g
+    ./woobuntu_build.sh -f ubuntu-gnome-16.04.2-desktop-amd64.iso -o woobuntu-current-amd64.iso -g
 
 更多帮助信息请参阅脚本运行提示:
 
@@ -84,7 +84,9 @@ https://github.com/lxj616/woobuntu-installer
 
 目前wooyun定制的firefox个人profile也独立成了一个模块
 
-版本为firefox 47.0+build3-0ubuntu0.16.04.1
+~~版本为firefox 47.0+build3-0ubuntu0.16.04.1
+
+目前该模块与系统内firefox版本脱钩
 
 https://github.com/lxj616/wooyun-firefox
 
