@@ -131,6 +131,9 @@ EOF
 #Update before fetching packages
 apt-get update -y
 
+#Support exfat filesystem
+apt-get install exfat-utils -y
+
 #Unattended install (deb selections)
 apt-get install debconf-utils -y
 
