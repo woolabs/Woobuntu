@@ -763,6 +763,16 @@ apt-get install siege -y
 #medusa
 apt-get install medusa -y
 
+#thc-hydra
+apt-get install libssh-dev -y
+cd /opt/woobuntu
+git clone https://github.com/vanhauser-thc/thc-hydra.git
+cd thc-hydra
+./configure
+make
+make install
+cd /root
+
 #binwalk
 #apt-get install binwalk -y
 
