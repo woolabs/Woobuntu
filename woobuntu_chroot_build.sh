@@ -922,6 +922,7 @@ wget https://bitbucket.org/JesusFreke/smali/downloads/smali-2.2.0.jar
 wget https://github.com/iBotPeaches/Apktool/releases/download/v2.2.2/apktool_2.2.2.jar
 wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip
 unzip dex-tools-2.0.zip
+wget https://github.com/google/android-classyshark/releases/download/8.0/ClassyShark.jar
 cd /root
 
 #Wifite
