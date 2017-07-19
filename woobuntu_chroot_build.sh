@@ -852,11 +852,16 @@ apt-get install gnuradio gr-osmosdr hackrf -y
 #hostapd-wpe
 mkdir -p /opt/woobuntu/config
 cd /opt/woobuntu
-git clone https://github.com/hph86/hostapd-wpe.git
-wget http://hostap.epitest.fi/releases/hostapd-2.5.tar.gz
-tar -zxf hostapd-2.5.tar.gz
-rm hostapd-2.5.tar.gz
-cd hostapd-2.5
+#git clone https://github.com/hph86/hostapd-wpe.git
+git clone https://github.com/OpenSecurityResearch/hostapd-wpe
+wget http://hostap.epitest.fi/releases/hostapd-2.6.tar.gz
+#wget http://hostap.epitest.fi/releases/hostapd-2.5.tar.gz
+tar -zxf hostapd-2.6.tar.gz
+#tar -zxf hostapd-2.5.tar.gz
+#rm hostapd-2.5.tar.gz
+rm hostapd-2.6.tar.gz
+#cd hostapd-2.5
+#cd hostapd-2.6
 patch -p1 < ../hostapd-wpe/hostapd-wpe.patch 
 cd hostapd
 sed -r 's/#CONFIG_LIBNL32=y/CONFIG_LIBNL32=y/' .config -i
