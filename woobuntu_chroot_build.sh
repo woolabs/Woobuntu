@@ -861,7 +861,7 @@ tar -zxf hostapd-2.6.tar.gz
 #rm hostapd-2.5.tar.gz
 rm hostapd-2.6.tar.gz
 #cd hostapd-2.5
-#cd hostapd-2.6
+cd hostapd-2.6
 patch -p1 < ../hostapd-wpe/hostapd-wpe.patch 
 cd hostapd
 sed -r 's/#CONFIG_LIBNL32=y/CONFIG_LIBNL32=y/' .config -i
