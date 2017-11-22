@@ -309,7 +309,10 @@ apt-get install uget aria2 curl -y
 apt-get install rar unrar p7zip -y
 
 #keepnote
-apt-get install keepnote -y
+#apt-get install keepnote -y
+
+#cherrytree is better than keepnote
+apt-get install cherrytree -y
 
 #keepass
 apt-get install keepassx -y
